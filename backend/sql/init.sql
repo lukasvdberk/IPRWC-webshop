@@ -13,6 +13,7 @@ CREATE TABLE "user"
 (
     user_id SERIAL,
     username VARCHAR(255),
+    is_admin BOOLEAN,
     password VARCHAR(255),
     PRIMARY KEY (user_id)
 );
@@ -26,7 +27,6 @@ CREATE TABLE customer
     email VARCHAR(320),
     customer_since DATE,
     phone_number VARCHAR(12),
-    password VARCHAR(255),
     FOREIGN KEY(user_id) REFERENCES "user"(user_id),
     PRIMARY KEY (customer_id)
 );

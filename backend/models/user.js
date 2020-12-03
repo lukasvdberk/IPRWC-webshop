@@ -1,12 +1,23 @@
 module.exports = class User {
     constructor(username) {
-    }
-
-    constructor(username, password) {
         this._username = username
-        this._password = password
     }
 
+    set isAdmin (isAdmin) {
+        this._isAdmin = isAdmin
+    }
+
+    get isAdmin () {
+        return this._isAdmin
+    }
+
+    get id() {
+        return this._id;
+    }
+
+    set id(value) {
+        this._id = value;
+    }
 
     get username() {
         return this._username;
