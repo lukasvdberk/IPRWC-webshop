@@ -8,14 +8,25 @@ CREATE TABLE product
     PRIMARY KEY (product_id)
 );
 
+CREATE TABLE "user"
+(
+    user_id SERIAL,
+    username VARCHAR(255),
+    password VARCHAR(255),
+    PRIMARY KEY (user_id)
+);
+
 CREATE TABLE customer
 (
+    user_id BIGINT,
     customer_id SERIAL,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     email VARCHAR(320),
     customer_since DATE,
     phone_number VARCHAR(12),
+    password VARCHAR(255),
+    FOREIGN KEY(user_id) REFERENCES "user"(user_id),
     PRIMARY KEY (customer_id)
 );
 
