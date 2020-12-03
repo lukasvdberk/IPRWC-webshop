@@ -3,6 +3,7 @@ CREATE TABLE product
     product_id SERIAL,
     name VARCHAR(255),
     price DOUBLE PRECISION,
+    size TEXT,
     description TEXT,
     image_url TEXT,
     PRIMARY KEY (product_id)
