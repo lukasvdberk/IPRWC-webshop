@@ -13,6 +13,8 @@ router.use('/media', express.static('media'))
 router.get('/products', ProductController.getAllProducts)
 router.post('/products/', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.addProduct)
 router.patch('/products/:productId', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.editProduct)
+router.delete('/products/:productIdz', AuthorizationUtil.isAuthenticatedAsUser, ProductController.deleteProduct)
+
 router.post('/products/add-image/:productId', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.addImageToProduct)
 
 // Authentication routes

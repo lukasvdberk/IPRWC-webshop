@@ -9,16 +9,15 @@ module.exports = class ProductDAO {
             for(let i = 0; i < productQueryResult.rows.length; i++) {
 
                 const productFromDatabase = productQueryResult.rows[i]
-
-                productModels.push(
-                    new Product(
-                        productFromDatabase.name,
-                        productFromDatabase.price,
-                        productFromDatabase.description,
-                        productFromDatabase.size,
-                        productFromDatabase.image_url
-                    )
+                let product = new Product(
+                    productFromDatabase.name,
+                    productFromDatabase.price,
+                    productFromDatabase.description,
+                    productFromDatabase.size,
+                    productFromDatabase.image_url
                 )
+                product.id = productFromDatabase.product_id
+                productModels.push(product)
             }
             return productModels
         }
@@ -37,7 +36,7 @@ module.exports = class ProductDAO {
             `SELECT * FROM product WHERE product_id=$1`,
             productId
         )
-        return this.queryResultToModel(productById)
+        return this.queryResultToModel(productById)[0]
     }
 
     static async saveProduct(product) {
@@ -63,5 +62,13 @@ module.exports = class ProductDAO {
             product.name, product.price, product.description, product.size, product.imageUrl, product.id
         )
         return updatedProductQueryResult.rowCount > 0;
+    }
+
+    static async deleteProduct(productId) {
+        const deletedProductQueryResult = await Database.executeSQLStatement(
+            `DELETE FROM product WHERE product_id=$1`,
+            productId
+        )
+        return deletedProductQueryResult.rowCount > 0;
     }
 }

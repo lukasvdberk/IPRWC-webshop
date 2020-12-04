@@ -73,8 +73,25 @@ module.exports = class ProductController {
         }
     }
 
-    static removeProduct(req, res, next) {
-
+    static deleteProduct(req, res, next) {
+        const productId = req.params.productId
+        if (!productId || isNaN(productId)) {
+            return ApiResponse.errorResponse(
+                400, 'You either did not supply a prodictid or a valid productid', res
+            )
+        } else {
+            return ProductDAO.deleteProduct(productId).then((isDeleted) => {
+                if(isDeleted) {
+                    return ApiResponse.successResponse({
+                        deleted: true
+                    }, res)
+                } else {
+                    return ApiResponse.errorResponse(500, 'Product id does not exist', res)
+                }
+            }).catch(() => {
+                return ApiResponse.errorResponse(500, 'Could not delete product', res)
+            })
+        }
     }
 
     static addImageToProduct(req, res, next) {
@@ -83,7 +100,7 @@ module.exports = class ProductController {
 
         imageFile.mv('./media/products/' + imageFile.name);
         ProductDAO.getProductById(productId).then((product) => {
-            product.imageURL = 'products/' + imageFile.name
+            product.imageUrl = 'products/' + imageFile.name
             ProductDAO.editProduct(product).then((isSaved) => {
                 if (isSaved) {
                     return ApiResponse.successResponse({}, res)

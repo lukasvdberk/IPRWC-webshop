@@ -7,6 +7,13 @@ module.exports = class Product {
         this._imageUrl = imageUrl;
     }
 
+    get id() {
+        return this._id;
+    }
+
+    set id(value) {
+        this._id = value;
+    }
 
     get size() {
         return this._size;
@@ -50,7 +57,7 @@ module.exports = class Product {
 
     toJSON() {
         return {
-            id: this.id,
+            id: this._id,
             name: this.name,
             description: this.description,
             size: this.size,
