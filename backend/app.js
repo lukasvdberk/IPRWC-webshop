@@ -1,7 +1,7 @@
 const express = require('express')
 const routesManager = require('./routes/routesManager')
 const bodyParser = require('body-parser')
-const Database =  require('./dao/database')
+const fileUpload = require('express-fileupload');
 
 // For environment variables
 require('dotenv').config()
@@ -9,6 +9,12 @@ require('dotenv').config()
 const app = express()
 
 app.use(bodyParser.json())
+// enable files upload
+app.use(fileUpload({
+    createParentPath: true
+}));
+
+
 app.use('/', routesManager)
 
 

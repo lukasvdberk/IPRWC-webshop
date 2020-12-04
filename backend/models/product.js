@@ -1,9 +1,19 @@
 module.exports = class Product {
-    constructor(name, price, description, imageUrl) {
+    constructor(name, price, description, size, imageUrl) {
         this._name = name;
         this._price = price;
         this._description = description;
         this._imageUrl = imageUrl;
+        this._size  = size
+    }
+
+
+    get size() {
+        return this._size;
+    }
+
+    set size(value) {
+        this._size = value;
     }
 
     get name() {
@@ -36,5 +46,15 @@ module.exports = class Product {
 
     set imageUrl(value) {
         this._imageUrl = value;
+    }
+
+    toJSON() {
+        return {
+            id: this.id,
+            name: this.name,
+            description: this.description,
+            price: this.price,
+            imageUrl: this.imageUrl,
+        }
     }
 }

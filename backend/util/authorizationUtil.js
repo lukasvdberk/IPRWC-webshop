@@ -104,8 +104,8 @@ module.exports = class AuthorizationUtil {
             const isAdmin = jwtPayload.isAdmin
 
             if (isAdmin) {
-                req.user = new Admin(jwtPayload.userId, jwtPayload.username)
-
+                req.user = new User(jwtPayload.username)
+                req.user.id = jwtPayload.userId
                 return next()
             } else {
                 return res.status(403).json({
