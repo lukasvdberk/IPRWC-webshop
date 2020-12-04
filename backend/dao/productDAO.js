@@ -3,27 +3,41 @@ const Product = require('../models/product')
 
 
 module.exports = class ProductDAO {
-    static async getAllProducts() {
-        const allProductsQueryResult = await Database.executeSQLStatement(
-            `SELECT * FROM product`
-        )
-        if (allProductsQueryResult.rowCount > 0) {
+    static queryResultToModel(productQueryResult) {
+        if (productQueryResult.rowCount > 0) {
             const productModels = []
-            for(let i = 0; i < allProductsQueryResult.rows.length; i++) {
+            for(let i = 0; i < productQueryResult.rows.length; i++) {
 
-                const productFromDatabase = allProductsQueryResult.rows[i]
+                const productFromDatabase = productQueryResult.rows[i]
+
                 productModels.push(
                     new Product(
                         productFromDatabase.name,
                         productFromDatabase.price,
                         productFromDatabase.description,
-                        productFromDatabase.imageUrl
+                        productFromDatabase.size,
+                        productFromDatabase.image_url
                     )
                 )
             }
             return productModels
         }
         return []
+    }
+
+    static async getAllProducts() {
+        const allProductsQueryResult = await Database.executeSQLStatement(
+            `SELECT * FROM product`
+        )
+        return this.queryResultToModel(allProductsQueryResult)
+    }
+
+    static async getProductById(productId) {
+        const productById = await Database.executeSQLStatement(
+            `SELECT * FROM product WHERE product_id=$1`,
+            productId
+        )
+        return this.queryResultToModel(productById)
     }
 
     static async saveProduct(product) {
@@ -35,14 +49,18 @@ module.exports = class ProductDAO {
         return productSaveQueryResult.rowCount > 0;
     }
 
-    static async addImageToProduct(productId, imageUrl) {
+    static async editProduct(product) {
         const updatedProductQueryResult = await Database.executeSQLStatement(
             `
                 UPDATE product
-                SET image_url = $1
-                WHERE product_id=$2
+                SET name=$1,
+                    price=$2,
+                    description=$3,
+                    size=$4,
+                    image_url=$5
+                WHERE product_id=$6;
             `,
-            imageUrl, productId
+            product.name, product.price, product.description, product.size, product.imageUrl, product.id
         )
         return updatedProductQueryResult.rowCount > 0;
     }

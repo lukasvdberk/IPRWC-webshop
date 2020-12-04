@@ -12,7 +12,7 @@ router.use('/media', express.static('media'))
 // Product routes
 router.get('/products', ProductController.getAllProducts)
 router.post('/products/', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.addProduct)
-router.patch('/products/', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.)
+router.patch('/products/:productId', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.editProduct)
 router.post('/products/add-image/:productId', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.addImageToProduct)
 
 // Authentication routes

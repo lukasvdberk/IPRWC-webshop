@@ -3,8 +3,8 @@ module.exports = class Product {
         this._name = name;
         this._price = price;
         this._description = description;
-        this._imageUrl = imageUrl;
         this._size  = size
+        this._imageUrl = imageUrl;
     }
 
 
@@ -53,6 +53,7 @@ module.exports = class Product {
             id: this.id,
             name: this.name,
             description: this.description,
+            size: this.size,
             price: this.price,
             imageUrl: this.imageUrl,
         }
