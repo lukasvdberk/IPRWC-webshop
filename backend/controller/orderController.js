@@ -13,11 +13,16 @@ module.exports = class OrderController {
     }
 
 
-    static async getOrdersFromUser(req, res, next) {
-        const customer = await CustomerDAO.getCustomerByUserId(req.user.id)
+    static async getOrdersFromCustomer(req, res, next) {
+        try {
+            const customer = await CustomerDAO.getCustomerByUserId(req.user.id)
 
-        const ordersFromUser = await OrderDAO.getAllOrdersFromCustomer(customer)
-        return ApiResponse.successResponse(ordersFromUser, res)
+            const ordersFromUser = await OrderDAO.getAllOrdersFromCustomer(customer)
+
+            return ApiResponse.successResponse(ordersFromUser, res)
+        } catch(ignored) {
+            return ApiResponse.errorResponse(500, 'Failed to fetch orders', res)
+        }
     }
 
     static async placeOrder(req, res, next) {

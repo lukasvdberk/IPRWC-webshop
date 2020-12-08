@@ -8,6 +8,9 @@ const Product = require('../models/product')
 
 
 module.exports = class OrderDAO {
+    static async getAllOrders() {
+    }
+
     static async getAllOrdersFromCustomer(customer) {
         const ordersFromUserQueryResult = await Database.executeSQLStatement(
             'SELECT * FROM "order" WHERE customer_id=$1',

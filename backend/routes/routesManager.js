@@ -19,7 +19,7 @@ router.delete('/products/:productId', AuthorizationUtil.isAuthenticatedAsUser, P
 router.post('/products/add-image/:productId', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.addImageToProduct)
 
 // Customer getting orders
-router.get('/orders/', AuthorizationUtil.isAuthenticatedAsUser, OrderController.getOrdersFromUser)
+router.get('/orders/', AuthorizationUtil.isAuthenticatedAsUser, OrderController.getOrdersFromCustomer)
 router.post('/orders/', AuthorizationUtil.isAuthenticatedAsUser, OrderController.placeOrder)
 
 router.get('/orders/all', AuthorizationUtil.isAuthenticatedAsAdmin, OrderController.getAllOrders)
