@@ -88,4 +88,16 @@ module.exports = class Customer {
     set phoneNumber(value) {
         this._phoneNumber = value;
     }
+
+    toJSON() {
+        return {
+            id: this.id,
+            user: this.user,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            street: this.street,
+            streetNumber: this.streetNumber,
+            postalCode: this.postalCode,
+        }
+    }
 }

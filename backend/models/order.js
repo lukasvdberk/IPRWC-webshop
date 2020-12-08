@@ -28,4 +28,12 @@ module.exports = class Order {
     set productOrders(value) {
         this._productOrders = value;
     }
+
+    toJSON() {
+        return {
+            customer: this.customer,
+            orderedOn: this.orderedOn,
+            productOrders: this.productOrders
+        }
+    }
 }

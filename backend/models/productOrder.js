@@ -20,4 +20,11 @@ module.exports = class ProductOrder {
     set amount(value) {
         this._amount = value;
     }
+
+    toJSON() {
+        return {
+            product: this._product,
+            amount: this._amount
+        }
+    }
 }
