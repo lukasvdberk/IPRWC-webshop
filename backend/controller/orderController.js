@@ -12,13 +12,15 @@ module.exports = class OrderController {
 
     }
 
-    static async getOrdersFromUser(req, res, next) {
 
+    static async getOrdersFromUser(req, res, next) {
+        const customer = await CustomerDAO.getCustomerByUserId(req.user.id)
+
+        const ordersFromUser = await OrderDAO.getAllOrdersFromCustomer(customer)
+        return ApiResponse.successResponse(ordersFromUser, res)
     }
 
     static async placeOrder(req, res, next) {
-        // TODO check if valid product ids
-        // TODO add try catch on code below
         const customer = await CustomerDAO.getCustomerByUserId(req.user.id)
         const productOrders = req.body.productOrders
 
@@ -44,7 +46,6 @@ module.exports = class OrderController {
                 saved: true
             }, res)
         } catch (ignored) {
-            console.log(ignored)
             return ApiResponse.errorResponse(404, 'One or more products could not be found', res)
         }
     }
