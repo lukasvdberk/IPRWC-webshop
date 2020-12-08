@@ -1,6 +1,6 @@
 module.exports = class User {
-    constructor(username) {
-        this._username = username
+    constructor(email) {
+        this._email = email
     }
 
     set isAdmin (isAdmin) {
@@ -19,12 +19,12 @@ module.exports = class User {
         this._id = value;
     }
 
-    get username() {
-        return this._username;
+    get email() {
+        return this._email;
     }
 
-    set username(value) {
-        this._username = value;
+    set email(value) {
+        this._email = value;
     }
 
     get password() {

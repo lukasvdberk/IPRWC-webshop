@@ -1,23 +1,25 @@
 const AuthorizationUtil = require('../util/authorizationUtil')
 const UserDAO = require('../dao/userDAO')
+const CustomerDAO = require('../dao/customerDAO')
 const User = require('../models/user')
+const Customer = require('../models/customer')
 const ApiResponse = require('./utils/apiResponse')
 
 module.exports = class AuthenticationController {
     static login (req, res, next) {
-        const username = req.body.username
+        const email = req.body.email
         const password = req.body.password
 
-        if (!username || !password) {
+        if (!email || !password) {
             return ApiResponse.errorResponse(400, 'Username or password not supplied', res)
         }
 
-        UserDAO.getUserByUsername(username).then((user) => {
+        UserDAO.getUserByEmail(email).then((user) => {
             if (user !== undefined) {
                 AuthorizationUtil.validPassword(password, user.hashPassword).then((validPassword) => {
                     if (validPassword) {
                         UserDAO.isUserAdmin(user).then((isUserAdmin) => {
-                            const token = AuthorizationUtil.createJWT(user.id, user.username, isUserAdmin)
+                            const token = AuthorizationUtil.createJWT(user.id, user.email, isUserAdmin)
 
                             return ApiResponse.successResponse({
                                 key: token,
@@ -35,29 +37,55 @@ module.exports = class AuthenticationController {
     }
 
     static register (req, res, next) {
-        const username = req.body.username
         const password = req.body.password
 
-        if (!username || !password) {
-            return ApiResponse.errorResponse(404, 'Username or password not supplied', res)
-        }
-        AuthorizationUtil.hashPassword(password).then((hashedPassword) => {
-            // 0 because the id is not defined yet
-            const user = new User(username)
+        const firstName = req.body.firstName
+        const lastName = req.body.lastName
+        const email = req.body.email
+        const phoneNumber = req.body.phoneNumber
+        const street = req.body.street
+        const streetNumber = req.body.streetNumber
+        const postalCode = req.body.postalCode
 
-            UserDAO.getUserByUsername(username).then((userObj) => {
-                // undefined means not found
+        if (!password ||
+            !firstName ||
+            !lastName ||
+            !email ||
+            !phoneNumber ||
+            !street ||
+            !streetNumber ||
+            !postalCode) {
+            return ApiResponse.errorResponse(404, 'Did not supply all customer information', res)
+        }
+
+        AuthorizationUtil.hashPassword(password).then((hashedPassword) => {
+            const user = new User(email)
+
+            UserDAO.getUserByEmail(email).then((userObj) => {
                 if (userObj === undefined) {
                     UserDAO.saveUser(user, hashedPassword).then((success) => {
                         if (success) {
-                            return ApiResponse.successResponse({
-                                key: AuthorizationUtil.createJWT(user.id, user.username, false),
-                                isAdmin: false
-                            }, res)
+                            UserDAO.getUserByEmail(email).then((user) => {
+                                CustomerDAO.saveCustomer(new Customer(
+                                    firstName,
+                                    lastName,
+                                    phoneNumber,
+                                    street,
+                                    streetNumber,
+                                    postalCode,
+                                    user
+                                )).then((ignored) => {
+                                    return ApiResponse.successResponse({
+                                        key: AuthorizationUtil.createJWT(user.id, user.email, false),
+                                        isAdmin: false
+                                    }, res)
+                                })
+                            })
                         }
                     })
                 } else {
-                    return ApiResponse.errorResponse(303, 'User with the given username already exists', res)
+                    return ApiResponse.errorResponse(
+                        303, 'User with the given email already exists', res)
                 }
             })
         })

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const ProductController = require('../controller/productController')
+const OrderController = require('../controller/orderController')
 
 const AuthorizationUtil = require('../util/authorizationUtil')
 const AuthenticationController = require('../controller/authenticationController')
@@ -13,9 +14,11 @@ router.use('/media', express.static('media'))
 router.get('/products', ProductController.getAllProducts)
 router.post('/products/', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.addProduct)
 router.patch('/products/:productId', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.editProduct)
-router.delete('/products/:productIdz', AuthorizationUtil.isAuthenticatedAsUser, ProductController.deleteProduct)
+router.delete('/products/:productId', AuthorizationUtil.isAuthenticatedAsUser, ProductController.deleteProduct)
 
 router.post('/products/add-image/:productId', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.addImageToProduct)
+
+router.post('/orders/', AuthorizationUtil.isAuthenticatedAsUser, OrderController.placeOrder)
 
 // Authentication routes
 router.post('/auth/login', AuthenticationController.login)

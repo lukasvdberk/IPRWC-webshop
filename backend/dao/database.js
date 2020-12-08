@@ -22,6 +22,39 @@ module.exports = class Database {
             console.log(exception)
         }
     }
+    /**
+     * Pass a list of SQL queries to execute. If one fails it rolls back all the other queries.
+     * Only use this with update/insert/delete operations
+     * @param {[{sqlStament, [args]}]} sqlStatements - SQL statement filled with prepared statement.
+     * To replace values (for inserts) with your own set $1::text in the SQL query (replace $1 with the number of the arguemnt)
+     * @returns boolean - if it failed or it had success with all the queries.
+     */
+    static async executeSQLStatementsWithTransaction(sqlStatements,) {
+        try {
+            const client = await this.getPool().connect()
+
+            try {
+                await client.query('BEGIN')
+
+                try {
+                    for(let i = 0; i < sqlStatements.length; i++) {
+                        const sqlQuery = sqlStatements[i]
+                        client.query(sqlQuery.sqlStatement, sqlQuery.args)
+                    }
+                    client.query('COMMIT')
+                    return true
+                } catch(e) {
+                    client.query('ROLLBACK')
+                    return false
+                }
+            } finally {
+                client.release()
+            }
+        } catch (exception) {
+            console.log(exception)
+        }
+        return false
+    }
 
     static getPool() {
         if(!this.connectionPool) {

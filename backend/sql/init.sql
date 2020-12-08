@@ -12,7 +12,7 @@ CREATE TABLE product
 CREATE TABLE "user"
 (
     user_id SERIAL,
-    username VARCHAR(255),
+    email VARCHAR(320),
     is_admin BOOLEAN,
     password VARCHAR(255),
     PRIMARY KEY (user_id)
@@ -24,12 +24,15 @@ CREATE TABLE customer
     customer_id SERIAL,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
-    email VARCHAR(320),
+    street VARCHAR(255),
+    street_number BIGINT,
+    postal_code VARCHAR(7),
     customer_since DATE,
     phone_number VARCHAR(12),
     FOREIGN KEY(user_id) REFERENCES "user"(user_id),
     PRIMARY KEY (customer_id)
 );
+
 
 CREATE TABLE "order"
 (

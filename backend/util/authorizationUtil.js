@@ -35,12 +35,12 @@ module.exports = class AuthorizationUtil {
      * Creates a jwt key
      * @function
      * @param {Number} userId - User his id (likely coming from the database)
-     * @param {string} username - User his username
+     * @param {string} email - User his email
      * @param {boolean} isAdmin - Wheather the user is admin or not
      * @returns {string} - The generated jwt token
      */
-    static createJWT (userId, username, isAdmin) {
-        const token = jwt.sign({ userId, username, isAdmin }, this.getJWTKey(), {
+    static createJWT (userId, email, isAdmin) {
+        const token = jwt.sign({ userId, email: email, isAdmin }, this.getJWTKey(), {
             algorithm: 'HS256'
         })
 
@@ -60,7 +60,7 @@ module.exports = class AuthorizationUtil {
             })
 
             return {
-                username: payload.username,
+                email: payload.email,
                 userId: payload.userId,
                 isAdmin: payload.isAdmin
             }
@@ -80,7 +80,8 @@ module.exports = class AuthorizationUtil {
         const jwtPayload = AuthorizationUtil.extractJWTInformation(jwtToken)
 
         if (jwtPayload !== undefined) {
-            req.user = new User(jwtPayload.userId, jwtPayload.username)
+            req.user = new User(jwtPayload.email)
+            req.user.id = jwtPayload.userId
             return next()
         } else {
             return res.status(403).json({
@@ -104,7 +105,7 @@ module.exports = class AuthorizationUtil {
             const isAdmin = jwtPayload.isAdmin
 
             if (isAdmin) {
-                req.user = new User(jwtPayload.username)
+                req.user = new User(jwtPayload.email)
                 req.user.id = jwtPayload.userId
                 return next()
             } else {

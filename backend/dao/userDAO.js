@@ -4,21 +4,21 @@ const User = require('../models/user')
 module.exports = class UserDAO {
     static async saveUser (user, hashedPassword) {
         const result = await Database.executeSQLStatement(
-            'INSERT INTO "user"(username, password) VALUES($1,$2)',
-            user.username, hashedPassword
+            'INSERT INTO "user"(email, password) VALUES($1,$2)',
+            user.email, hashedPassword
         )
 
         return result.rowCount === 1
     }
 
-    static async getUserByUsername (username) {
+    static async getUserByEmail (email) {
         const result = await Database.executeSQLStatement(
-            'SELECT * FROM "user" WHERE username=$1', username
+            'SELECT * FROM "user" WHERE email=$1', email
         )
         if (result.rowCount > 0) {
             const row = result.rows[0]
 
-            const user = new User(row.username)
+            const user = new User(row.email)
             user.id = row.user_id
             user.hashPassword = row.password
 

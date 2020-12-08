@@ -1,12 +1,53 @@
 module.exports = class Customer {
-    constructor(firstName, lastName, email, customerSince, phoneNumber) {
+    constructor(firstName, lastName, phoneNumber, street, streetNumber, postalCode, user) {
         this._firstName = firstName
         this._lastName = lastName
-        this._email = email
-        this._customerSince = customerSince
         this._phoneNumber = phoneNumber
+        this._street = street
+        this._streetNumber = streetNumber
+        this._postalCode = postalCode
+        this._user = user
     }
 
+    get id() {
+        return this._id
+    }
+
+    set id(value) {
+        this._id = value
+    }
+
+    get user() {
+        return this._user;
+    }
+
+    set user(value) {
+        this._user = value;
+    }
+
+    get street() {
+        return this._street;
+    }
+
+    set street(value) {
+        this._street = value;
+    }
+
+    get streetNumber() {
+        return this._streetNumber;
+    }
+
+    set streetNumber(value) {
+        this._streetNumber = value;
+    }
+
+    get postalCode() {
+        return this._postalCode;
+    }
+
+    set postalCode(value) {
+        this._postalCode = value;
+    }
 
     get firstName() {
         return this._firstName;

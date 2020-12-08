@@ -1,7 +1,6 @@
 module.exports = class Order {
-    constructor(customer, orderedOn, productOrders) {
+    constructor(customer, productOrders) {
         this._customer = customer
-        this._orderedOn = orderedOn
         this._productOrders = productOrders;
     }
 
