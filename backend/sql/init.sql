@@ -6,6 +6,7 @@ CREATE TABLE product
     size TEXT,
     description TEXT,
     image_url TEXT,
+    isActive BOOLEAN DEFAULT TRUE,
     PRIMARY KEY (product_id)
 );
 

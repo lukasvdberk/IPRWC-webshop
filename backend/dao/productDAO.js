@@ -26,14 +26,14 @@ module.exports = class ProductDAO {
 
     static async getAllProducts() {
         const allProductsQueryResult = await Database.executeSQLStatement(
-            `SELECT * FROM product`
+            `SELECT * FROM product WHERE isActive=true`
         )
         return this.queryResultToModel(allProductsQueryResult)
     }
 
     static async getProductById(productId) {
         const productById = await Database.executeSQLStatement(
-            `SELECT * FROM product WHERE product_id=$1`,
+            `SELECT * FROM product WHERE product_id=1 AND isActive=true`,
             productId
         )
         return this.queryResultToModel(productById)[0]
@@ -66,7 +66,9 @@ module.exports = class ProductDAO {
 
     static async deleteProduct(productId) {
         const deletedProductQueryResult = await Database.executeSQLStatement(
-            `DELETE FROM product WHERE product_id=$1`,
+            `UPDATE product
+                SET isActive=false
+                WHERE product_id=$1`,
             productId
         )
         return deletedProductQueryResult.rowCount > 0;
