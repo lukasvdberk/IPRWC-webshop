@@ -1,0 +1,61 @@
+version: "3"
+services:
+  nginx-reverse-proxy:
+    restart: always
+    build: nginx
+    expose:
+      - "80"
+    ports:
+      - "0.0.0.0:80:80"
+    links:
+      - backend
+    networks:
+      - base
+    volumes:
+      - media:/usr/share/nginx/html/media
+      - front-end-static:/usr/share/nginx/html
+  front-end:
+    build: front-end
+    env_file:
+      - .env
+    volumes:
+      - ./front-end/:/app
+      - front-end-static:/app/dist/front-end/
+    ports:
+      - "4200:4200"
+    expose:
+      - "4200"
+  database:
+    build: database
+    restart: always
+    volumes:
+      - ./database/data:/var/lib/postgresql
+    ports:
+      - "4000:5432"
+    expose:
+      - "5432"
+    env_file:
+      - .env
+    networks:
+      - base
+  backend:
+    container_name: backend
+    build: backend
+    networks:
+      - base
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - media:/app/media
+    depends_on:
+      - database
+
+networks:
+  base:
+
+volumes:
+  media:
+  front-end-static:

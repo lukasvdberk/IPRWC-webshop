@@ -60,9 +60,9 @@ module.exports = class Database {
         if(!this.connectionPool) {
             this.connectionPool = new Pool({
                 host: process.env.SQL_HOST,
-                user: process.env.SQL_USERNAME,
-                password: process.env.SQL_PASSWORD,
-                database: process.env.SQL_DATABASE,
+                user: process.env.POSTGRES_USER,
+                password: process.env.POSTGRES_PASSWORD,
+                database: process.env.POSTGRES_DB,
                 port: process.env.SQL_PORT,
                 max: 20,
                 idleTimeoutMillis: 30000,
