@@ -1,0 +1,18 @@
+h1, h3, pre, label {
+  margin-top: 20px;
+  color: white;
+}
+
+form > * {
+  display: block;
+}
+
+button {
+  margin-right: 10px;
+  display: inline-block !important;
+}
+
+.card-img-top {
+  height: 400px;
+  object-fit: cover;
+}

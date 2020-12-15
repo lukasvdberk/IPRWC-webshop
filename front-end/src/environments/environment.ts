@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  mediaUrl: 'http://127.0.0.1/media/',
+  baseUrl: 'http://127.0.0.1/api',
 };
 
 /*

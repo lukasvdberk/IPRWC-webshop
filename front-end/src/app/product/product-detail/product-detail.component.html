@@ -1,1 +1,43 @@
-<p>product-detail works!</p>
+<div class="container">
+  <div class="row" *ngIf="product">
+    <div class="col-lg-4">
+      <div class="card">
+        <img class="card-img-top" src="{{ product.imageUrl | mediaUrl }}" alt="Production description">
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <h1>{{ product.name }}</h1>
+      <pre>{{ product.description }}</pre>
+      <form class="form-controls" (ngSubmit)="onSubmit()" #orderForm="ngForm" ngForm>
+        <label>
+          Amount:
+          <input
+            class="form-controls"
+            type="number"
+            name="number"
+            required
+            ngModel
+            #amount="ngModel"
+          />
+        </label>
+        <label>
+          Size:
+          <select
+            name="size"
+            class="form-controls"
+            #select
+            ngModel
+            select>
+            <option
+              *ngFor="let size of sizes"
+              [value]="size.value">
+              {{size.name}}
+            </option>
+          </select>
+        </label>
+        <button type="submit" class="btn btn-dark">Add to shopping cart</button>
+        <button class="btn btn-light">Add to shopping cart and place order</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  mediaUrl: 'https://iprwc.lukas.sh/media/',
+  baseUrl: 'https://iprwc.lukas.sh/api',
 };

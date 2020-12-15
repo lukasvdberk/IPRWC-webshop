@@ -18,7 +18,6 @@ export class ProductCustomerComponent implements OnInit {
   setProduct() {
     this.productService.getProducts().subscribe((response)=> {
       this.products = response as Product[]
-      console.log(this.products)
     }, error => {
       // TODO display appropriate error
     });

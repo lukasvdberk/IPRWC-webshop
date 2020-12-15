@@ -7,11 +7,16 @@ import { ProductCustomerComponent } from './product-customer/product-customer.co
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ProductService} from "./product.service";
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import {SharedModule} from "../shared/shared.module";
+import {AppModule} from "../app.module";
 
 let routes: Routes = [
   {
     path: "",
     children: [
+      {
+        path: "product/:id", component: ProductDetailComponent
+      },
       {
         path: "", component: ProductCustomerComponent
       },
@@ -30,7 +35,8 @@ let routes: Routes = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes)
+    SharedModule,
+    RouterModule.forChild(routes),
   ],
   providers: [
     ProductService

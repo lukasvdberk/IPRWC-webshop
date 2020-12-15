@@ -4,7 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ProductModule} from "./product/product.module";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import {BaseUrlInterceptor} from "./api/http-client.interceptor";
+import {environment} from "../environments/environment";
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -14,10 +17,18 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ProductModule
+    SharedModule,
+    ProductModule,
   ],
   providers: [
     HttpClient,
+    HttpClient,
+    {provide: 'BASE_API_URL', useValue: environment.baseUrl},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseUrlInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent]
 })
