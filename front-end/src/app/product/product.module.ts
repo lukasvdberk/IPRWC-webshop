@@ -6,6 +6,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductCustomerComponent } from './product-customer/product-customer.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ProductService} from "./product.service";
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 let routes: Routes = [
   {
@@ -22,7 +23,8 @@ let routes: Routes = [
   declarations: [
     ProductComponent,
     ProductListComponent,
-    ProductCustomerComponent
+    ProductCustomerComponent,
+    ProductDetailComponent
   ],
   imports: [
     CommonModule,

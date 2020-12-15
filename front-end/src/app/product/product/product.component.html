@@ -1,8 +1,10 @@
-<div class="card text-center">
-  <img class="card-img-top" src="http://127.0.0.1/media/{{ product.imageUrl }}" alt="Card image cap">
+<div class="card">
+  <img  class="card-img-top" src="http://127.0.0.1/media/{{ product.imageUrl }}" alt="Production description">
   <div class="card-body">
-    <h5 class="card-title">{{product.name}}</h5>
-    <p class="card-text">{{product.description}}</p>
-    <a href="#" class="btn btn-primary">Bestellen</a>
+    <div class="card-title">
+      <h4>{{product.name}}</h4>
+    </div>
+    <p class="card-text-center">{{product.description}}</p>
+    <a class="btn btn-dark">Go to order page</a>
   </div>
 </div>
