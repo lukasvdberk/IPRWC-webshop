@@ -20,9 +20,6 @@ module.exports = class ApiResponse {
      * @param {ExpressRes} res - A valid express response object to send the response with.
      */
     static successResponse (content, res) {
-        return res.status(200).json({
-            success: true,
-            content: content
-        })
+        return res.status(200).json(content)
     }
 }

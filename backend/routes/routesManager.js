@@ -8,7 +8,7 @@ const AuthorizationUtil = require('../util/authorizationUtil')
 const AuthenticationController = require('../controller/authenticationController')
 
 // Files route
-router.use('/media', express.static('media'))
+// router.use('/media', express.static('media'))
 
 // Product routes
 router.get('/api/products', ProductController.getAllProducts)

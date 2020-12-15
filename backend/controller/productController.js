@@ -97,8 +97,7 @@ module.exports = class ProductController {
     static addImageToProduct(req, res, next) {
         const productId = req.params.productId
         const imageFile = req.files.image
-
-        imageFile.mv('./media/products/' + imageFile.name);
+        imageFile.mv('/app/media/products/' + imageFile.name);
         ProductDAO.getProductById(productId).then((product) => {
             product.imageUrl = 'products/' + imageFile.name
             ProductDAO.editProduct(product).then((isSaved) => {

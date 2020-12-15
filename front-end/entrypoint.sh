@@ -1,7 +1,7 @@
 #!/bin/bash
-npm install
-npm install --save-dev @angular-devkit/build-angular
-npm install -g @angular/cli
+#npm install
+#npm install --save-dev @angular-devkit/build-angular
+#npm install -g @angular/cli
 
 if $PRODUCTION ; then
     echo 'Running production'

@@ -33,9 +33,10 @@ module.exports = class ProductDAO {
 
     static async getProductById(productId) {
         const productById = await Database.executeSQLStatement(
-            `SELECT * FROM product WHERE product_id=1 AND isActive=true`,
+            `SELECT * FROM product WHERE product_id=$1 AND isActive=true`,
             productId
         )
+
         return this.queryResultToModel(productById)[0]
     }
 

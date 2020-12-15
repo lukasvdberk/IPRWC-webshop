@@ -7,13 +7,15 @@ services:
       - "80"
     ports:
       - "0.0.0.0:80:80"
+    depends_on:
+      - backend
     links:
       - backend
     networks:
       - base
     volumes:
-      - media:/usr/share/nginx/html/media
-      - front-end-static:/usr/share/nginx/html
+      - media:/usr/share/nginx/html/media/
+      - front-end-static:/usr/share/nginx/html/
   front-end:
     build: front-end
     env_file:
@@ -48,8 +50,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./backend:/app
-      - media:/app/media
+#      - ./backend:/app
+      - media:/app/media/
     depends_on:
       - database
 
