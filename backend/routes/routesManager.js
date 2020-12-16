@@ -15,7 +15,6 @@ router.get('/api/products', ProductController.getAllProducts)
 router.post('/api/products/', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.addProduct)
 router.patch('/api/products/:productId', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.editProduct)
 router.delete('/api/products/:productId', AuthorizationUtil.isAuthenticatedAsUser, ProductController.deleteProduct)
-
 router.post('/api/products/add-image/:productId', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.addImageToProduct)
 
 // Customer getting orders

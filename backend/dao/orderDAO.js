@@ -38,7 +38,8 @@ module.exports = class OrderDAO {
                     for (let j = 0; j < products.length; j++) {
                         productOrders.push(new ProductOrder(
                             products[j],
-                            productOrdersQueryResult.rows[j].amount
+                            productOrdersQueryResult.rows[j].amount,
+                            productOrdersQueryResult.rows[j].size,
                         ))
                     }
                 }
@@ -63,12 +64,13 @@ module.exports = class OrderDAO {
             const productOrder = order.productOrders[i]
             const productId = productOrder.product.id || 0
             const amount = productOrder.amount || 0
+            const size = productOrder.size || 0
 
             sqlQueries.push({
                 sqlStatement:
-                    'INSERT INTO order_rule (order_id, product_id, amount)' +
-                    ' VALUES ($1, $2, $3)',
-                args: [newOrderQueryResult.rows[0].order_id, productId, amount]
+                    'INSERT INTO order_rule (order_id, product_id, amount, size)' +
+                    ' VALUES ($1, $2, $3, $4)',
+                args: [newOrderQueryResult.rows[0].order_id, productId, amount, size]
             })
         }
         const savedProductOrders = await Database.executeSQLStatementsWithTransaction(sqlQueries)

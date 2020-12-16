@@ -36,12 +36,15 @@ module.exports = class OrderController {
             const product = await ProductDAO.getProductById(productOrder.productId)
 
             if(product === undefined) {
-                return ApiResponse.errorResponse(404, 'One or more products could not be found', res)
+                return ApiResponse.errorResponse(
+                    404, `Product with id ${productOrder.productId} could not be found`, res
+                )
             }
 
             productOrdersModels.push(new ProductOrder(
                 product,
-                productOrder.amount
+                productOrder.amount,
+                productOrder.size
             ))
         }
         let order = new Order(customer, productOrdersModels)

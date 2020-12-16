@@ -50,8 +50,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-#      - ./backend:/app
-      - media:/app/media/
+      - ./backend:/app/
+      - media:/media/
     depends_on:
       - database
 

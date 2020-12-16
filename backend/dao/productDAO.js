@@ -13,7 +13,6 @@ module.exports = class ProductDAO {
                     productFromDatabase.name,
                     productFromDatabase.price,
                     productFromDatabase.description,
-                    productFromDatabase.size,
                     productFromDatabase.image_url
                 )
                 product.id = productFromDatabase.product_id
@@ -42,9 +41,9 @@ module.exports = class ProductDAO {
 
     static async saveProduct(product) {
         const productSaveQueryResult = await Database.executeSQLStatement(
-            `INSERT INTO product (name, price, size, description) 
-                VALUES ($1, $2, $3, $4)`,
-            product.name, product.price, product.size,product.description
+            `INSERT INTO product (name, price, description) 
+                VALUES ($1, $2, $3)`,
+            product.name, product.price, product.description
         )
         return productSaveQueryResult.rowCount > 0;
     }
@@ -56,11 +55,10 @@ module.exports = class ProductDAO {
                 SET name=$1,
                     price=$2,
                     description=$3,
-                    size=$4,
-                    image_url=$5
-                WHERE product_id=$6;
+                    image_url=$4
+                WHERE product_id=$5;
             `,
-            product.name, product.price, product.description, product.size, product.imageUrl, product.id
+            product.name, product.price, product.description, product.imageUrl, product.id
         )
         return updatedProductQueryResult.rowCount > 0;
     }

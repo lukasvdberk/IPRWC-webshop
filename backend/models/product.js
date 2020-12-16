@@ -1,9 +1,8 @@
 module.exports = class Product {
-    constructor(name, price, description, size, imageUrl) {
+    constructor(name, price, description, imageUrl) {
         this._name = name;
         this._price = price;
         this._description = description;
-        this._size  = size
         this._imageUrl = imageUrl;
     }
 
@@ -60,7 +59,6 @@ module.exports = class Product {
             id: this._id,
             name: this.name,
             description: this.description,
-            size: this.size,
             price: this.price,
             imageUrl: this.imageUrl,
         }

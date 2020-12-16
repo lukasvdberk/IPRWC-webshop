@@ -9,13 +9,12 @@ module.exports = class ProductController {
         const name = req.body.name
         const price = req.body.price
         const description = req.body.description
-        const size = req.body.size
         const imageUrl = req.body.imageURL
 
-        if (!name || !price || !description || !size || isNaN(price) ) {
+        if (!name || !price || !description || isNaN(price)) {
             return undefined;
         } else {
-            return new Product(name, price, description, size, imageUrl)
+            return new Product(name, price, description, imageUrl)
         }
     }
 
@@ -53,7 +52,7 @@ module.exports = class ProductController {
         const productId = req.params.productId
         const product = ProductController.parseProductFromBody(req)
         product.id = productId
-        if (product === undefined || !productId || isNaN(productId)) {
+        if (!productId || isNaN(productId)) {
             return ApiResponse.errorResponse(
                 400, 'You either did not supply a name, price, size or description or a ' +
                 'product id as parameter ', res
@@ -97,7 +96,7 @@ module.exports = class ProductController {
     static addImageToProduct(req, res, next) {
         const productId = req.params.productId
         const imageFile = req.files.image
-        imageFile.mv('/app/media/products/' + imageFile.name);
+        imageFile.mv('/media/products/' + imageFile.name);
         ProductDAO.getProductById(productId).then((product) => {
             product.imageUrl = 'products/' + imageFile.name
             ProductDAO.editProduct(product).then((isSaved) => {
