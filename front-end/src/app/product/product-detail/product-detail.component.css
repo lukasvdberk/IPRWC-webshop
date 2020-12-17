@@ -1,6 +1,6 @@
-h1, h3, pre, label {
+h1, h3, p, label {
   margin-top: 20px;
-  color: white;
+  color: white !important;
 }
 
 form > * {

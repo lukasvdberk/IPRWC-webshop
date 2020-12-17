@@ -5,7 +5,9 @@ import {Observable} from "rxjs";
 import {AuthenticationService} from "../authentication/authentication.service";
 import {tap} from "rxjs/operators";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CustomerService {
   constructor(private httpClient:HttpClient, private authService: AuthenticationService) {}
 

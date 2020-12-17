@@ -1,1 +1,23 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" [routerLink]="['/']">
+    <img src="/assets/images/nav-banner.png" class="d-inline-block align-top" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/']">Products</a>
+      </li>
+    </ul>
+
+    <span *ngIf="customer" class="navbar-text">
+      Welcome back {{customer.firstName}} !
+    </span>
+    <a [routerLink]="" class="navbar-text">
+      <img src="/assets/icons/cart.svg" alt="Shopping cart icon">
+      <span *ngIf="cartItems.length" class="badge badge-dark">{{cartItems.length}}</span>
+    </a>
+  </div>
+</nav>
