@@ -5,6 +5,7 @@ import {Product} from "../product";
 import {NgForm} from "@angular/forms";
 import {ShoppingCartItem} from "../../cart/shopping-cart-item";
 import {CartService} from "../../cart/cart.service";
+import {ToastService} from "../../shared/toast-service/toast.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -30,7 +31,7 @@ export class ProductDetailComponent implements OnInit {
   ]
   product: Product | any = undefined;
   constructor(private activatedRoute: ActivatedRoute, private productService: ProductService,
-              private cartService: CartService) { }
+              private cartService: CartService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -48,12 +49,22 @@ export class ProductDetailComponent implements OnInit {
 
   onSubmit() {
     // TODO add to shopping cart or go to finalize order page.
-    console.log(this.orderForm.value)
-    console.log(this.cartService.addProductToShoppingCart({
+    const isAddedToCart = this.cartService.addProductToShoppingCart({
       size: this.orderForm.value.size,
       amount: this.orderForm.value.amount,
       product: this.product,
-    }))
+    });
+    if (isAddedToCart) {
+      this.toastService.showSuccess({
+        durationInSeconds: 4,
+        message: `${this.orderForm.value.amount} ${this.product.name} added to cart`
+      })
+    } else {
+      this.toastService.showSuccess({
+        durationInSeconds: 4,
+        message: 'Could not add product, please try again later'
+      })
+    }
   }
 
 }
