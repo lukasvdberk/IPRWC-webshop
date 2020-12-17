@@ -3,6 +3,8 @@ import {ActivatedRoute} from "@angular/router";
 import {ProductService} from "../product.service";
 import {Product} from "../product";
 import {NgForm} from "@angular/forms";
+import {ShoppingCartItem} from "../../cart/shopping-cart-item";
+import {CartService} from "../../cart/cart.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -27,7 +29,8 @@ export class ProductDetailComponent implements OnInit {
     },
   ]
   product: Product | any = undefined;
-  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) { }
+  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService,
+              private cartService: CartService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -46,6 +49,11 @@ export class ProductDetailComponent implements OnInit {
   onSubmit() {
     // TODO add to shopping cart or go to finalize order page.
     console.log(this.orderForm.value)
+    console.log(this.cartService.addProductToShoppingCart({
+      size: this.orderForm.value.size,
+      amount: this.orderForm.value.amount,
+      product: this.product,
+    }))
   }
 
 }
