@@ -6,16 +6,16 @@ import {Subscribable, throwError} from "rxjs";
 
 @Injectable()
 export class ProductService {
-  constructor(private httClient:HttpClient) {}
+  constructor(private httpClient:HttpClient) {}
 
   getProducts() {
-    return this.httClient.get(
+    return this.httpClient.get(
       "products",
     )
   }
 
   getProductById(productId: number) {
-    return this.httClient.get<Product[]>(
+    return this.httpClient.get<Product[]>(
       "products",
     ).pipe(
       map((products) => {

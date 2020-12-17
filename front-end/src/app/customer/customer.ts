@@ -1,3 +1,5 @@
+import {User} from "../authentication/user";
+
 export interface Customer {
   firstName: string;
   lastName: string;
@@ -5,4 +7,5 @@ export interface Customer {
   street: string;
   streetNumber: number;
   postalCode: string;
+  user: User
 }

@@ -1,0 +1,12 @@
+h1, h3, pre, label {
+  margin-top: 20px;
+  color: white;
+}
+
+.help-block {
+ color: white;
+}
+
+form, label {
+  width: 100%;
+}
