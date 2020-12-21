@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {OrderItem} from "../../shared/models/order-item";
+import {OrderCartUtil} from "../../shared/order-cart-util";
 
 @Component({
   selector: 'app-cart-order',
@@ -15,14 +16,8 @@ export class CartOrderComponent implements OnInit {
   }
 
   calculateTotal(): number {
-    if(this.cartItems !== undefined) {
-      let totalAmount = 0;
-      for (let i = 0; i < this.cartItems.length; i++) {
-        const cartItem = this.cartItems[i];
-        totalAmount += cartItem.amount * cartItem.product.price
-      }
-
-      return totalAmount
+    if(this.cartItems != undefined) {
+      return OrderCartUtil.calculateTotal(this.cartItems)
     }
     return 0
   }

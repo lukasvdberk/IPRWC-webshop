@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Order} from "./order";
 import {AuthenticationService} from "../authentication/authentication.service";
+import {Customer} from "../customer/customer";
 
 @Injectable()
 export class OrderService {
@@ -25,5 +26,9 @@ export class OrderService {
     return this.httpClient.post(`orders/user/` + order.customer.id,
       orderToSendToApi
     )
+  }
+
+  getOrdersOfCustomer(customer: Customer): Observable<Order[]> {
+    return this.httpClient.get<Order[]>(`orders/user/` + customer.id)
   }
 }

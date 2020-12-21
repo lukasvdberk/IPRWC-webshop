@@ -5,15 +5,25 @@ import { PlaceOrderComponent } from './place-order/place-order.component';
 import {RequiresUserGuard} from "../shared/guards/requires-user.guard";
 import {OrderService} from "./order.service";
 import { OrdersComponent } from './orders/orders.component';
+import { OrderItemComponent } from './order-item/order-item.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 const routes: Routes = [
   {
     path: 'place-order', component: PlaceOrderComponent, canActivate: [RequiresUserGuard]
+  },
+  {
+    path: 'orders', component: OrdersComponent, canActivate: [RequiresUserGuard]
   }
 ]
 
 @NgModule({
-  declarations: [PlaceOrderComponent, OrdersComponent],
+  declarations: [
+    PlaceOrderComponent,
+    OrdersComponent,
+    OrderItemComponent,
+    OrderDetailComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
