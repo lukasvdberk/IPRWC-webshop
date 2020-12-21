@@ -1,5 +1,6 @@
 const Database = require('./database')
 const Customer = require('../models/customer')
+const User = require('../models/user')
 
 module.exports = class CustomerDAO {
     static async saveCustomer(customer) {
@@ -14,14 +15,18 @@ module.exports = class CustomerDAO {
         return customerSaveQueryResult.rowCount > 0
     }
 
-    static queryResultToModel(customerQueryResult) {
-        if (customerQueryResult.rowCount > 0) {
+    static queryResultToModel(customerQueryResult, userCustomerQueryResult) {
+        if (customerQueryResult.rowCount > 0 && userCustomerQueryResult.rowCount > 0) {
             const customerModels = []
             for(let i = 0; i < customerQueryResult.rows.length; i++) {
 
                 const customerFromDatabase = customerQueryResult.rows[i]
 
-                // TODO set user correctly
+                const userFromDatabase = userCustomerQueryResult.rows[i]
+                let user = new User(userFromDatabase.email)
+                user.isAdmin = userFromDatabase.is_admin
+                user.id = userFromDatabase.user_id
+
                 let customer = new Customer(
                     customerFromDatabase.first_name,
                     customerFromDatabase.last_name,
@@ -29,7 +34,7 @@ module.exports = class CustomerDAO {
                     customerFromDatabase.street,
                     customerFromDatabase.street_number,
                     customerFromDatabase.postal_code,
-                    undefined
+                    user
                 )
                 customer.id = customerFromDatabase.customer_id
                 customerModels.push(customer)
@@ -43,6 +48,13 @@ module.exports = class CustomerDAO {
         const customerQueryResult = await Database.executeSQLStatement(
             'SELECT * FROM customer WHERE user_id=$1', userId
         )
-        return this.queryResultToModel(customerQueryResult)[0]
+
+        const customerUserQueryResult = await Database.executeSQLStatement(
+            `SELECT user_id, "user".email, is_admin
+            FROM "user"
+            WHERE user_id=$1`,
+            userId
+        )
+        return this.queryResultToModel(customerQueryResult, customerUserQueryResult)[0]
     }
 }

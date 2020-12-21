@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {CustomerService} from "../customer.service";
+import {ShoppingCartItem} from "../../cart/shopping-cart-item";
 
 @Component({
   selector: 'app-customer-register',
@@ -9,6 +10,9 @@ import {CustomerService} from "../customer.service";
 })
 export class CustomerRegisterComponent implements OnInit {
   errorMessage = ''
+
+  @Output() registered: EventEmitter<void> = new EventEmitter();
+
   @ViewChild('customerRegisterForm') orderForm: NgForm | any;
 
   constructor(private customerService: CustomerService) { }
@@ -28,7 +32,7 @@ export class CustomerRegisterComponent implements OnInit {
       customer
     ).subscribe(
       (response) => {
-        console.log(response)
+        this.registered.emit()
       },
       (error) => {
         this.errorMessage = 'User with given email already exists!'

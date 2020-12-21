@@ -1,150 +1,148 @@
-<div class="container">
-  <h1>Register as a customer</h1>
-  <p>Here you can register as a customer for the Scarlxrd webshop</p>
-  <form (ngSubmit)="onSubmit()" #customerRegisterForm="ngForm" ngForm>
-    <div class="form-group">
-      <label>
-        Email
-        <input
-          class="form-control"
-          type="email"
-          name="email"
-          required
-          ngModel
-          email
-          #email="ngModel"
-        />
-      </label>
-      <span class="help-block" *ngIf="!email.valid && email.touched">
-          Please enter a valid email {{email.value}} is not a valid email
-      </span>
-    </div>
-    <div class="form-group">
-      <label>
-        Password
-        <input
-          class="form-control"
-          type="password"
-          name="password"
-          required
-          ngModel
-          password
-          #password="ngModel"
-        />
-      </label>
-      <span class="help-block" *ngIf="!password.valid && password.touched">
-          Please enter a valid password {{password.value}} is not a valid password
-      </span>
-    </div>
-    <div class="form-group">
-      <label>
-        First name
-        <input
-          class="form-control"
-          type="text"
-          name="firstName"
-          required
-          ngModel
-          #firstName="ngModel"
-        />
-      </label>
-      <span class="help-block" *ngIf="!firstName.valid && firstName.touched">
-          Please enter a first name
-      </span>
-    </div>
-
-    <div class="form-group">
-      <label>
-        Last name
-        <input
-          class="form-control"
-          type="text"
-          name="lastName"
-          required
-          ngModel
-          #lastName="ngModel"
-        />
-      </label>
-      <span class="help-block" *ngIf="!lastName.valid && lastName.touched">
-          Please enter a valid lastname
-      </span>
-    </div>
-    <div class="form-group">
-      <label>
-        Phone number
-        <input
-          class="form-control"
-          minlength="10"
-          maxlength="12"
-          type="text"
-          name="phoneNumber"
-          required
-          ngModel
-          #phoneNumber="ngModel"
-        />
-      </label>
-      <span class="help-block" *ngIf="!phoneNumber.valid && phoneNumber.touched">
-          Please enter a valid phone number
-      </span>
-    </div>
-    <div class="form-group">
-      <label>
-        Street
-        <input
-          class="form-control"
-          type="text"
-          name="street"
-          required
-          ngModel
-          #street="ngModel"
-        />
-      </label>
-      <span class="help-block" *ngIf="!street.valid && street.touched">
-          Please enter a valid street
-      </span>
-    </div>
-    <div class="form-group">
-      <label>
-        Street number
-        <input
-          class="form-control"
-          type="number"
-          name="streetNumber"
-          required
-          ngModel
-          #streetNumber="ngModel"
-        />
-      </label>
-      <span class="help-block" *ngIf="!streetNumber.valid && streetNumber.touched">
-          Please enter a valid streetnumber
-      </span>
-    </div>
-
-    <div class="form-group">
-      <label>
-        Postal code
-        <input
-          class="form-control"
-          type="text"
-          name="postalCode"
-          minlength="6"
-          maxlength="7"
-          max=""
-          required
-          ngModel
-          #postalCode="ngModel"
-        />
-      </label>
-      <span class="help-block" *ngIf="!postalCode.valid && postalCode.touched">
-          Please enter a valid postalcode
-      </span>
-    </div>
-    <div *ngIf="errorMessage !== ''" class="alert alert-danger" role="alert">
-      {{ errorMessage }}
-    </div>
-    <button type="submit" [disabled]="!customerRegisterForm.valid" #submit class="btn btn-dark">Register</button>
-    <span class="help-block" *ngIf="!customerRegisterForm.valid && customerRegisterForm.touched">
-      Make sure all the values are correct. Then you can press this button
+<h1>Register as a customer</h1>
+<p>Here you can register as a customer for the Scarlxrd webshop</p>
+<form (ngSubmit)="onSubmit()" #customerRegisterForm="ngForm" ngForm>
+  <div class="form-group">
+    <label>
+      Email
+      <input
+        class="form-control"
+        type="email"
+        name="email"
+        required
+        ngModel
+        email
+        #email="ngModel"
+      />
+    </label>
+    <span class="help-block" *ngIf="!email.valid && email.touched">
+        Please enter a valid email {{email.value}} is not a valid email
     </span>
-  </form>
-</div>
+  </div>
+  <div class="form-group">
+    <label>
+      Password
+      <input
+        class="form-control"
+        type="password"
+        name="password"
+        required
+        ngModel
+        password
+        #password="ngModel"
+      />
+    </label>
+    <span class="help-block" *ngIf="!password.valid && password.touched">
+        Please enter a valid password {{password.value}} is not a valid password
+    </span>
+  </div>
+  <div class="form-group">
+    <label>
+      First name
+      <input
+        class="form-control"
+        type="text"
+        name="firstName"
+        required
+        ngModel
+        #firstName="ngModel"
+      />
+    </label>
+    <span class="help-block" *ngIf="!firstName.valid && firstName.touched">
+        Please enter a first name
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label>
+      Last name
+      <input
+        class="form-control"
+        type="text"
+        name="lastName"
+        required
+        ngModel
+        #lastName="ngModel"
+      />
+    </label>
+    <span class="help-block" *ngIf="!lastName.valid && lastName.touched">
+        Please enter a valid lastname
+    </span>
+  </div>
+  <div class="form-group">
+    <label>
+      Phone number
+      <input
+        class="form-control"
+        minlength="10"
+        maxlength="12"
+        type="text"
+        name="phoneNumber"
+        required
+        ngModel
+        #phoneNumber="ngModel"
+      />
+    </label>
+    <span class="help-block" *ngIf="!phoneNumber.valid && phoneNumber.touched">
+        Please enter a valid phone number
+    </span>
+  </div>
+  <div class="form-group">
+    <label>
+      Street
+      <input
+        class="form-control"
+        type="text"
+        name="street"
+        required
+        ngModel
+        #street="ngModel"
+      />
+    </label>
+    <span class="help-block" *ngIf="!street.valid && street.touched">
+        Please enter a valid street
+    </span>
+  </div>
+  <div class="form-group">
+    <label>
+      Street number
+      <input
+        class="form-control"
+        type="number"
+        name="streetNumber"
+        required
+        ngModel
+        #streetNumber="ngModel"
+      />
+    </label>
+    <span class="help-block" *ngIf="!streetNumber.valid && streetNumber.touched">
+        Please enter a valid streetnumber
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label>
+      Postal code
+      <input
+        class="form-control"
+        type="text"
+        name="postalCode"
+        minlength="6"
+        maxlength="7"
+        max=""
+        required
+        ngModel
+        #postalCode="ngModel"
+      />
+    </label>
+    <span class="help-block" *ngIf="!postalCode.valid && postalCode.touched">
+        Please enter a valid postalcode
+    </span>
+  </div>
+  <div *ngIf="errorMessage !== ''" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+  <button type="submit" [disabled]="!customerRegisterForm.valid" #submit class="btn btn-dark">Register</button>
+  <span class="help-block" *ngIf="!customerRegisterForm.valid && customerRegisterForm.touched">
+    Make sure all the values are correct. Then you can press this button
+  </span>
+</form>

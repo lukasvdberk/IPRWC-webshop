@@ -1,6 +1,7 @@
 import {User} from "../authentication/user";
 
 export interface Customer {
+  id?: number
   firstName: string;
   lastName: string;
   phoneNumber: string;

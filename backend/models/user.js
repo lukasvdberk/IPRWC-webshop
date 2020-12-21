@@ -34,4 +34,12 @@ module.exports = class User {
     set password(value) {
         this._password = value;
     }
+
+    toJSON() {
+        return {
+            id: this.id,
+            email: this.email,
+            isAdmin: this.isAdmin
+        }
+    }
 }

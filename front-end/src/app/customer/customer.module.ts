@@ -4,21 +4,25 @@ import {CustomerRegisterComponent} from "./customer-register/customer-register.c
 import {RouterModule, Routes} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {CustomerService} from "./customer.service";
+import {AuthenticationModule} from "../authentication/authentication.module";
+import { CustomerSigningComponent } from './customer-signing/customer-signing.component';
 
 const routes: Routes = [
   {
-    path: 'register', component: CustomerRegisterComponent
+    path: 'signing', component: CustomerSigningComponent
   },
 ]
 
 @NgModule({
   declarations: [
     CustomerRegisterComponent,
+    CustomerSigningComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
+    AuthenticationModule
   ],
   providers: [
     CustomerService

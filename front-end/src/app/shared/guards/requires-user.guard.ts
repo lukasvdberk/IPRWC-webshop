@@ -19,7 +19,7 @@ export class RequiresUserGuard implements CanActivate {
     const jwtKey = this.authService.getJWTToken()
     if (jwtKey === '') {
       // TODO add redirect url shizzle
-      this.router.navigate(['customer', 'register'])
+      this.router.navigate([])
       return false
     } else{
       return true

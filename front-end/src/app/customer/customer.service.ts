@@ -21,7 +21,6 @@ export class CustomerService {
       .pipe(tap(
         (response: any) => {
           this.authService.saveAuthentication(response.key, response.isAdmin)
-          this.saveCustomer(customer)
           console.log(this.getCustomer())
         }
       ));
