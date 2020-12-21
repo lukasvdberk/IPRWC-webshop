@@ -12,4 +12,16 @@ export class AuthenticationService {
     // TODO maybe save the whole user here.
     localStorage.setItem('isAdmin', String(isAdmin));
   }
+
+  getJWTToken(): string {
+    try {
+      const jwtToken = localStorage.getItem('jwtKey') as string;
+      if (jwtToken === null || jwtToken === undefined) {
+        return '';
+      }
+      return jwtToken;
+    } catch (e) {
+      return '';
+    }
+  }
 }
