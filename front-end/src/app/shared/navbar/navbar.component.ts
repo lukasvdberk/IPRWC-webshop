@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Customer} from "../../customer/customer";
 import {CustomerService} from "../../customer/customer.service";
 import {CartService} from "../../cart/cart.service";
-import {ShoppingCartItem} from "../../cart/shopping-cart-item";
+import {OrderItem} from "../models/order-item";
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +11,7 @@ import {ShoppingCartItem} from "../../cart/shopping-cart-item";
 })
 export class NavbarComponent implements OnInit {
   customer: Customer | undefined
-  cartItems: ShoppingCartItem[] | undefined
+  cartItems: OrderItem[] | undefined
   constructor(private customerService: CustomerService, private cartService: CartService) { }
 
   ngOnInit(): void {

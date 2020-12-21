@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ShoppingCartItem} from "../shopping-cart-item";
+import {OrderItem} from "../../shared/models/order-item";
 
 @Component({
   selector: 'app-cart-order',
@@ -7,7 +7,7 @@ import {ShoppingCartItem} from "../shopping-cart-item";
   styleUrls: ['./cart-order.component.css']
 })
 export class CartOrderComponent implements OnInit {
-  @Input() cartItems: ShoppingCartItem[] | undefined
+  @Input() cartItems: OrderItem[] | undefined
   constructor() { }
 
   ngOnInit(): void {

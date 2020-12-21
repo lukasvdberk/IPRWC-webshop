@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {ProductService} from "../product.service";
 import {Product} from "../product";
 import {NgForm} from "@angular/forms";
-import {ShoppingCartItem} from "../../cart/shopping-cart-item";
+import {OrderItem} from "../../shared/models/order-item";
 import {CartService} from "../../cart/cart.service";
 import {ToastService} from "../../shared/toast-service/toast.service";
 

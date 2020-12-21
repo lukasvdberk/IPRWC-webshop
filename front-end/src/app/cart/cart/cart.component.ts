@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ShoppingCartItem} from "../shopping-cart-item";
+import {OrderItem} from "../../shared/models/order-item";
 import {CartService} from "../cart.service";
 import {Product} from "../../product/product";
 
@@ -9,16 +9,16 @@ import {Product} from "../../product/product";
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cartItems: ShoppingCartItem[] | undefined
+  cartItems: OrderItem[] | undefined
   cartProducts : Product[] | undefined
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
     this.cartItems = this.cartService.getShoppingCartItems()
-    this.cartProducts = this.cartItems.map((i: ShoppingCartItem) => i.product)
+    this.cartProducts = this.cartItems.map((i: OrderItem) => i.product)
   }
 
-  onCartItemUpdated(item: ShoppingCartItem) {
+  onCartItemUpdated(item: OrderItem) {
     if(this.cartItems) {
       for (let i = 0; i < this.cartItems.length; i++) {
         if (this.cartItems[i] === item) {
@@ -29,7 +29,7 @@ export class CartComponent implements OnInit {
     }
   }
 
-  onCartItemRemoved(item: ShoppingCartItem) {
+  onCartItemRemoved(item: OrderItem) {
     if(this.cartItems) {
       for(let i = 0; i < this.cartItems.length; i++){
         if (this.cartItems[i] === item) {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {ShoppingCartItem} from "./shopping-cart-item";
-import {TShirtCartItem} from "./t-shirt-cart-item";
+import {OrderItem} from "../shared/models/order-item";
+import {TShirtOrderItem} from "../shared/models/t-shirt-order-item";
 import {BehaviorSubject} from "rxjs";
 
 @Injectable({
@@ -10,10 +10,10 @@ export class CartService {
   public cartSubject = new BehaviorSubject(this.getShoppingCartItems());
   constructor() { }
 
-  getShoppingCartItems(): ShoppingCartItem[] {
+  getShoppingCartItems(): OrderItem[] {
     try {
       const cartItems = localStorage.getItem('shoppingCartItems')
-      const items = JSON.parse(<string>cartItems) as ShoppingCartItem[];
+      const items = JSON.parse(<string>cartItems) as OrderItem[];
       if (items === null) {
         return []
       }
@@ -25,7 +25,7 @@ export class CartService {
     }
   }
 
-  addProductToShoppingCart(item: ShoppingCartItem | TShirtCartItem): boolean {
+  addProductToShoppingCart(item: OrderItem | TShirtOrderItem): boolean {
     try {
       // add to existing products
       let currentShoppingItems = this.getShoppingCartItems();
@@ -47,7 +47,7 @@ export class CartService {
     }
   }
 
-  setCartItems(items: ShoppingCartItem[]) {
+  setCartItems(items: OrderItem[]) {
     localStorage.setItem('shoppingCartItems', JSON.stringify(items));
   }
 

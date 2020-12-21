@@ -43,7 +43,7 @@ module.exports = class OrderController {
 
     static async placeOrder(req, res, next) {
         const customer = await CustomerDAO.getCustomerByUserId(req.user.id)
-        const productOrders = req.body.productOrders
+        const productOrders = req.body
 
         if(!OrderController.canAccessOrders(req)) {
             return ApiResponse.errorResponse(401, 'Not authorized', res)

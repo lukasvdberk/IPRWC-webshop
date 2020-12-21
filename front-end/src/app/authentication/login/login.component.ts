@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
-import {ShoppingCartItem} from "../../cart/shopping-cart-item";
+import {OrderItem} from "../../shared/models/order-item";
 import {AuthenticationService} from "../authentication.service";
 
 @Component({

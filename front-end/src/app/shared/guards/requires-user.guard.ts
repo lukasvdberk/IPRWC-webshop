@@ -14,7 +14,6 @@ export class RequiresUserGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     const currentUrl = this.getResolvedUrl(route);
-    console.log(currentUrl)
 
     const jwtKey = this.authService.getJWTToken()
     if (jwtKey === '') {
