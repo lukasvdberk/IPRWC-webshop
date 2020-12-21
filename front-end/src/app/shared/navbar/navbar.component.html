@@ -13,11 +13,11 @@
     </ul>
 
     <span *ngIf="customer" class="navbar-text">
-      Welcome back {{customer.firstName}} !
+      Welcome back {{customer.firstName}}
     </span>
-    <a [routerLink]="" class="navbar-text">
+    <a [routerLink]="['/cart', 'items']" class="navbar-text">
       <img src="/assets/icons/cart.svg" alt="Shopping cart icon">
-      <span *ngIf="cartItems.length" class="badge badge-dark">{{cartItems.length}}</span>
+      <span *ngIf="cartItems" class="badge badge-dark">{{cartItems.length}}</span>
     </a>
   </div>
 </nav>

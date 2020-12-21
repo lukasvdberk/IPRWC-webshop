@@ -5,6 +5,7 @@
       <h4>{{product.name}}</h4>
     </div>
     <p class="card-text-center">{{product.description}}</p>
+    <p>&euro; {{ product.price }}</p>
     <a [routerLink]="['product', product.id]" class="btn btn-dark">Go to order page</a>
   </div>
 </div>

@@ -38,6 +38,10 @@ let routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
   ],
+  exports: [
+    ProductListComponent,
+    ProductComponent
+  ],
   providers: [
     ProductService
   ]

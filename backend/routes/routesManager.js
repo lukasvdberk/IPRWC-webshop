@@ -18,8 +18,8 @@ router.delete('/api/products/:productId', AuthorizationUtil.isAuthenticatedAsUse
 router.put('/api/products/:productId/image/', AuthorizationUtil.isAuthenticatedAsAdmin ,ProductController.addImageToProduct)
 
 // Customer getting orders
-router.get('/api/orders/', AuthorizationUtil.isAuthenticatedAsUser, OrderController.getOrdersFromCustomer)
-router.post('/api/orders/', AuthorizationUtil.isAuthenticatedAsUser, OrderController.placeOrder)
+router.get('/api/orders/user/:userId', AuthorizationUtil.isAuthenticatedAsUser, OrderController.getOrdersFromCustomer)
+router.post('/api/orders/user/:userId', AuthorizationUtil.isAuthenticatedAsUser, OrderController.placeOrder)
 
 router.get('/api/orders/all', AuthorizationUtil.isAuthenticatedAsAdmin, OrderController.getAllOrders)
 

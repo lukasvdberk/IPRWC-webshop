@@ -12,15 +12,31 @@ module.exports = class OrderController {
 
     }
 
+    static canAccessOrders(req) {
+        // Can only access orders if the user id is the same as in the JWT token or the user is admin
+        const userId = req.params.userId
+        const userIdOfJWT = req.user.id
+
+        return req.user.isAdmin || userId == userIdOfJWT
+    }
 
     static async getOrdersFromCustomer(req, res, next) {
         try {
-            const customer = await CustomerDAO.getCustomerByUserId(req.user.id)
+            if(!OrderController.canAccessOrders(req)) {
+                return ApiResponse.errorResponse(401, 'Not authorized', res)
+            }
+            const userId = req.params.userId
 
+            const customer = await CustomerDAO.getCustomerByUserId(userId)
+
+            if (customer === undefined) {
+                return ApiResponse.errorResponse(404, 'Customer not found', res)
+            }
             const ordersFromUser = await OrderDAO.getAllOrdersFromCustomer(customer)
 
             return ApiResponse.successResponse(ordersFromUser, res)
         } catch(ignored) {
+            console.log(ignored)
             return ApiResponse.errorResponse(500, 'Failed to fetch orders', res)
         }
     }
@@ -28,6 +44,10 @@ module.exports = class OrderController {
     static async placeOrder(req, res, next) {
         const customer = await CustomerDAO.getCustomerByUserId(req.user.id)
         const productOrders = req.body.productOrders
+
+        if(!OrderController.canAccessOrders(req)) {
+            return ApiResponse.errorResponse(401, 'Not authorized', res)
+        }
 
         let productOrdersModels = []
         for(let i = 0; i < productOrders.length; i++) {

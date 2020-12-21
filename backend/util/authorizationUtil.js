@@ -82,6 +82,8 @@ module.exports = class AuthorizationUtil {
         if (jwtPayload !== undefined) {
             req.user = new User(jwtPayload.email)
             req.user.id = jwtPayload.userId
+            req.user.isAdmin = jwtPayload.isAdmin
+
             return next()
         } else {
             return res.status(403).json({
@@ -107,6 +109,7 @@ module.exports = class AuthorizationUtil {
             if (isAdmin) {
                 req.user = new User(jwtPayload.email)
                 req.user.id = jwtPayload.userId
+                req.user.isAdmin = jwtPayload.isAdmin
                 return next()
             } else {
                 return res.status(403).json({
