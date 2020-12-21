@@ -21,7 +21,6 @@ export class CustomerService {
       .pipe(tap(
         (response: any) => {
           this.authService.saveAuthentication(response.key, response.isAdmin)
-          console.log(this.getCustomer())
         }
       ));
   }
@@ -32,11 +31,15 @@ export class CustomerService {
     localStorage.setItem('currentCustomer', JSON.stringify(customer))
   }
 
-  getCustomer(): Customer | undefined{
+  async getCustomer(): Promise<Customer | undefined>{
     try {
       const customer = localStorage.getItem('currentCustomer')
       if(!customer) {
-        return undefined
+        // if local does not exist then we fetch from remote
+        const result = await this.httpClient.get('customer/me').toPromise()
+
+        this.saveCustomer(result as Customer)
+        return result as Customer
       }
       return JSON.parse(customer) as Customer
     }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-customer-signing',
@@ -6,13 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer-signing.component.css']
 })
 export class CustomerSigningComponent implements OnInit {
+  redirectUrl = '/'
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.redirectUrl = params['redirectUrl'];
+    });
   }
 
   onSigning() {
-    // Fetch customer
+    this.router.navigateByUrl(this.redirectUrl)
   }
 }

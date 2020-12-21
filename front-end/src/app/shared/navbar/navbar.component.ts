@@ -15,7 +15,9 @@ export class NavbarComponent implements OnInit {
   constructor(private customerService: CustomerService, private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.customer = this.customerService.getCustomer()
+    this.customerService.getCustomer().then(customer => {
+      this.customer = customer
+    })
     this.cartItems = this.cartService.getShoppingCartItems()
     this.cartService.cartSubject.subscribe((newShoppingCartItems) => {
       this.cartItems = newShoppingCartItems
