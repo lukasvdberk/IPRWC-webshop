@@ -2,34 +2,37 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductComponent } from './product/product.component';
 import {RouterModule, Routes} from "@angular/router";
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductCustomerComponent } from './product-customer/product-customer.component';
+import { ProductCustomerComponent } from './products-customer/product-customer.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ProductService} from "./product.service";
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import {SharedModule} from "../shared/shared.module";
-import {AppModule} from "../app.module";
+import { ManageProductsComponent } from './products-admin/manage-products.component';
+import {AdminGuard} from "../shared/guards/admin.guard";
+import { AddProductAdminComponent } from './add-product-admin/add-product-admin.component';
 
 let routes: Routes = [
   {
-    path: "",
-    children: [
-      {
-        path: "product/:id", component: ProductDetailComponent
-      },
-      {
-        path: "", component: ProductCustomerComponent
-      },
-    ]
-  }
+    path: "products/add", component: AddProductAdminComponent, canActivate: [AdminGuard]
+  },
+  {
+    path: "products/manage", component: ManageProductsComponent, canActivate: [AdminGuard]
+  },
+  {
+    path: "product/:id", component: ProductDetailComponent
+  },
+  {
+    path: "", component: ProductCustomerComponent
+  },
 ]
 
 @NgModule({
   declarations: [
     ProductComponent,
-    ProductListComponent,
     ProductCustomerComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ManageProductsComponent,
+    AddProductAdminComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +42,6 @@ let routes: Routes = [
     RouterModule.forChild(routes),
   ],
   exports: [
-    ProductListComponent,
     ProductComponent
   ],
   providers: [

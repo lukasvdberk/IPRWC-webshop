@@ -7,18 +7,18 @@ import {GuardUtil} from "./guard-util";
 @Injectable({
   providedIn: 'root'
 })
-export class RequiresUserGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private authService: AuthenticationService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
     const currentUrl = GuardUtil.getResolvedUrl(route);
 
     const jwtKey = this.authService.getJWTToken()
-    if (jwtKey === '') {
-      this.router.navigate(['customer', 'signing'], {
+    const isAdmin = this.authService.isAdmin()
+    if (jwtKey === '' && isAdmin === undefined) {
+      this.router.navigate(['admin', 'signing'], {
         queryParams: {
           'redirectUrl': currentUrl
         }
@@ -28,4 +28,5 @@ export class RequiresUserGuard implements CanActivate {
       return true
     }
   }
+
 }

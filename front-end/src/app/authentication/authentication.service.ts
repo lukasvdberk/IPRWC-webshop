@@ -24,6 +24,15 @@ export class AuthenticationService {
     localStorage.setItem('isAdmin', String(isAdmin));
   }
 
+  isAdmin(): boolean | undefined {
+    try {
+      const isAdmin = localStorage.getItem('isAdmin') as string;
+      return Boolean(isAdmin)
+    } catch (e) {
+      return undefined;
+    }
+  }
+
   getJWTToken(): string {
     try {
       const jwtToken = localStorage.getItem('jwtKey') as string;
