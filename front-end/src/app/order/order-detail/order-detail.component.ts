@@ -31,7 +31,7 @@ export class OrderDetailComponent implements OnInit {
             }
            }, error => {
              this.toastService.showError({
-               message: 'Failed to fetch your orders please try again later',
+               message: 'Failed to fetch your orders-from-customer please try again later',
                durationInSeconds: 3
              })
            })

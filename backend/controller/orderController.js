@@ -13,7 +13,7 @@ module.exports = class OrderController {
     }
 
     static canAccessOrders(req) {
-        // Can only access orders if the user id is the same as in the JWT token or the user is admin
+        // Can only access orders-from-customer if the user id is the same as in the JWT token or the user is admin
         const userId = req.params.userId
         const userIdOfJWT = req.user.id
 
@@ -37,7 +37,7 @@ module.exports = class OrderController {
             return ApiResponse.successResponse(ordersFromUser, res)
         } catch(ignored) {
             console.log(ignored)
-            return ApiResponse.errorResponse(500, 'Failed to fetch orders', res)
+            return ApiResponse.errorResponse(500, 'Failed to fetch orders-from-customer', res)
         }
     }
 

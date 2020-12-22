@@ -4,12 +4,13 @@ import {RouterModule, Routes} from "@angular/router";
 import { PlaceOrderComponent } from './place-order/place-order.component';
 import {RequiresUserGuard} from "../shared/guards/requires-user.guard";
 import {OrderService} from "./order.service";
-import { OrdersComponent } from './orders/orders.component';
+import { OrdersComponent } from './orders-from-customer/orders.component';
 import { OrderItemComponent } from './order-item/order-item.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import {CustomerModule} from "../customer/customer.module";
 import {ProductModule} from "../product/product.module";
 import {CartModule} from "../cart/cart.module";
+import { AllOrdersAdminComponent } from './all-orders-admin/all-orders-admin.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,8 @@ const routes: Routes = [
     PlaceOrderComponent,
     OrdersComponent,
     OrderItemComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    AllOrdersAdminComponent
   ],
   imports: [
     CommonModule,

@@ -21,7 +21,7 @@ export class OrdersComponent implements OnInit {
           this.orders = orders.reverse()
         }, (error) => {
           this.toastService.showError({
-            message: 'Failed to fetch your orders. Try logging in again.',
+            message: 'Failed to fetch your orders-from-customer. Try logging in again.',
             durationInSeconds: 5
           })
         })
