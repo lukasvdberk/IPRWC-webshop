@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {catchError, filter, map} from "rxjs/operators";
+import {catchError, map, mergeMap, tap} from "rxjs/operators";
 import {Product} from "./product";
-import {Subscribable, throwError} from "rxjs";
+import {Observable, Subscribable, throwError} from "rxjs";
 
 @Injectable()
 export class ProductService {
@@ -27,5 +27,23 @@ export class ProductService {
         return product
       })
     )
+  }
+
+  // NOTE requires admin authentication
+  addProduct(product :Product, imageFile: File): Observable<any> {
+    return this.httpClient.post(
+      'products',
+      product
+    ).pipe(tap((response: any) => {
+      const imageForm = new FormData();
+      imageForm.append("image", imageFile, imageFile.name);
+      // TODO refactor to cleaner way
+      this.httpClient.put(`products/${response.productId}/image`, imageForm)
+        .subscribe((response2) => {}, (error) => {})
+    }))
+  }
+
+  deleteProduct(product: Product): Observable<any> {
+    return this.httpClient.delete(`products/${product.id}`)
   }
 }

@@ -34,10 +34,11 @@ module.exports = class ProductController {
                 400, 'You either did not supply a name, price, size or description', res
             )
         } else {
-            return ProductDAO.saveProduct(product).then((isSaved) => {
-                if(isSaved) {
+            return ProductDAO.saveProduct(product).then((productId) => {
+                if(productId) {
                     return ApiResponse.successResponse({
-                        saved: true
+                        saved: true,
+                        productId: productId
                     }, res)
                 } else {
                     return ApiResponse.errorResponse(500, 'Could not save product', res)

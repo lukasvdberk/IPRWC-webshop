@@ -17,14 +17,24 @@ export class AdminGuard implements CanActivate {
 
     const jwtKey = this.authService.getJWTToken()
     const isAdmin = this.authService.isAdmin()
-    if (jwtKey === '' && isAdmin === undefined) {
+    if (jwtKey === '' || isAdmin === undefined) {
       this.router.navigate(['admin', 'signing'], {
         queryParams: {
           'redirectUrl': currentUrl
         }
       })
       return false
-    } else{
+    }
+    if (!isAdmin) {
+      // TODO add redirect to error page with something like access denied
+      this.router.navigate(['admin', 'signing'], {
+        queryParams: {
+          'redirectUrl': currentUrl
+        }
+      })
+      return false
+    }
+    else{
       return true
     }
   }

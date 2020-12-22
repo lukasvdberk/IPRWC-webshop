@@ -42,10 +42,15 @@ module.exports = class ProductDAO {
     static async saveProduct(product) {
         const productSaveQueryResult = await Database.executeSQLStatement(
             `INSERT INTO product (name, price, description) 
-                VALUES ($1, $2, $3)`,
+                VALUES ($1, $2, $3) RETURNING product_id`,
             product.name, product.price, product.description
         )
-        return productSaveQueryResult.rowCount > 0;
+        if (productSaveQueryResult.rowCount > 0) {
+            return productSaveQueryResult.rows[0].product_id
+        }
+        else {
+            return undefined
+        }
     }
 
     static async editProduct(product) {

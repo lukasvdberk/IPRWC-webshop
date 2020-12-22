@@ -27,7 +27,7 @@ export class AuthenticationService {
   isAdmin(): boolean | undefined {
     try {
       const isAdmin = localStorage.getItem('isAdmin') as string;
-      return Boolean(isAdmin)
+      return isAdmin == "true";
     } catch (e) {
       return undefined;
     }

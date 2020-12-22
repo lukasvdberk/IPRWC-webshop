@@ -1,6 +1,6 @@
 <div *ngIf="cartItem" class="row bg-light border-bottom border-dark rounded align-items-center">
   <div class="col-2">
-    <img class="img-fluid float-left" src="{{ cartItem.product.imageUrl | mediaUrl }}" alt="{{ cartItem.product.name }} image">
+    <img class="img-fluid float-left" *ngIf="cartItem.product.imageUrl" src="{{ cartItem.product.imageUrl | mediaUrl }}" alt="{{ cartItem.product.name }} image">
   </div>
   <div [className]="editable ? 'col-3' : 'col-5'">
     <span>{{ cartItem.product.name }}</span>

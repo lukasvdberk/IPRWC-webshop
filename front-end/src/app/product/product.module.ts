@@ -10,6 +10,7 @@ import {SharedModule} from "../shared/shared.module";
 import { ManageProductsComponent } from './products-admin/manage-products.component';
 import {AdminGuard} from "../shared/guards/admin.guard";
 import { AddProductAdminComponent } from './add-product-admin/add-product-admin.component';
+import { EditProductAdminComponent } from './edit-product-admin/edit-product-admin.component';
 
 let routes: Routes = [
   {
@@ -32,7 +33,8 @@ let routes: Routes = [
     ProductCustomerComponent,
     ProductDetailComponent,
     ManageProductsComponent,
-    AddProductAdminComponent
+    AddProductAdminComponent,
+    EditProductAdminComponent
   ],
   imports: [
     CommonModule,
