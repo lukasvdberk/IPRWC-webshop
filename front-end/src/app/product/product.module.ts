@@ -17,6 +17,9 @@ let routes: Routes = [
     path: "products/add", component: AddProductAdminComponent, canActivate: [AdminGuard]
   },
   {
+    path: "products/edit/:productId", component: EditProductAdminComponent, canActivate: [AdminGuard]
+  },
+  {
     path: "products/manage", component: ManageProductsComponent, canActivate: [AdminGuard]
   },
   {

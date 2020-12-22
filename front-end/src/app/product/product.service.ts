@@ -43,6 +43,21 @@ export class ProductService {
     }))
   }
 
+  editProduct(existingProduct :Product, imageFile: File | undefined) {
+    return this.httpClient.patch(
+      `products/${existingProduct.id}`,
+      existingProduct
+    ).pipe(tap((response: any) => {
+      if (imageFile) {
+        const imageForm = new FormData();
+        imageForm.append("image", imageFile, imageFile.name);
+        // TODO refactor to cleaner way
+        this.httpClient.put(`products/${existingProduct.id}/image`, imageForm)
+          .subscribe((response2) => {}, (error) => {})
+      }
+    }))
+  }
+
   deleteProduct(product: Product): Observable<any> {
     return this.httpClient.delete(`products/${product.id}`)
   }

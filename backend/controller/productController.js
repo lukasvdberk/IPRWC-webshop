@@ -59,16 +59,19 @@ module.exports = class ProductController {
                 'product id as parameter ', res
             )
         } else {
-            return ProductDAO.editProduct(product).then((isSaved) => {
-                if(isSaved) {
-                    return ApiResponse.successResponse({
-                        edited: true
-                    }, res)
-                } else {
+            ProductDAO.getProductById(productId).then((existingProduct) => {
+                product.imageUrl = existingProduct.imageUrl
+                ProductDAO.editProduct(product).then((isSaved) => {
+                    if(isSaved) {
+                        return ApiResponse.successResponse({
+                            edited: true
+                        }, res)
+                    } else {
+                        return ApiResponse.errorResponse(500, 'Could not edit product', res)
+                    }
+                }).catch(() => {
                     return ApiResponse.errorResponse(500, 'Could not edit product', res)
-                }
-            }).catch(() => {
-                return ApiResponse.errorResponse(500, 'Could not save product', res)
+                })
             })
         }
     }

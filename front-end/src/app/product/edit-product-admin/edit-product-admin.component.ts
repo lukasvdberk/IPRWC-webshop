@@ -2,20 +2,30 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ProductService} from "../product.service";
 import {ToastService} from "../../shared/toast-service/toast.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Product} from "../product";
 
 @Component({
-  selector: 'app-add-product-admin',
-  templateUrl: './add-product-admin.component.html',
-  styleUrls: ['./add-product-admin.component.css']
+  selector: 'app-edit-product-admin',
+  templateUrl: './edit-product-admin.component.html',
+  styleUrls: ['./edit-product-admin.component.css']
 })
-export class AddProductAdminComponent implements OnInit {
+export class EditProductAdminComponent implements OnInit {
   @ViewChild('productForm') productForm: NgForm | undefined
 
   selectedImage: File | undefined
-  constructor(private productService: ProductService, private toastService: ToastService, private router: Router) { }
+  existingProduct: Product | undefined
+  constructor(private productService: ProductService, private toastService: ToastService, private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params: any) => {
+       this.productService.getProductById(params.productId).subscribe((product) => {
+         this.existingProduct = product
+       }, error => {
+         // TODO add 404 if the product is not found
+       })
+    });
   }
 
   onImageAdded(event: any): void {
@@ -23,14 +33,15 @@ export class AddProductAdminComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.productForm !== undefined && this.selectedImage !== undefined) {
-      this.productService.addProduct({
+    if (this.productForm !== undefined) {
+      this.productService.editProduct({
+        id: this.existingProduct?.id,
         name: String(this.productForm.value.name),
         price: +this.productForm.value.price,
         description: String(this.productForm.value.description),
       }, this.selectedImage).subscribe((response) => {
         this.toastService.showSuccess({
-          message: 'Product added. You will be redirect in a couple of seconds',
+          message: 'Edited existing product. You will be redirected to the manage page',
           durationInSeconds: 3
         })
         setTimeout(() => {
