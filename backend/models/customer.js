@@ -97,6 +97,7 @@ module.exports = class Customer {
             lastName: this.lastName,
             street: this.street,
             streetNumber: this.streetNumber,
+            phoneNumber: this.phoneNumber,
             postalCode: this.postalCode,
         }
     }

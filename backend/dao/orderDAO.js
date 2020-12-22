@@ -44,6 +44,7 @@ module.exports = class OrderDAO {
                     }
                 }
                 let order = new Order(customer, productOrders)
+                order.id = orderQueryResult.order_id
                 order.orderedOn = orderQueryResult.ordered_on
                 orderModels.push(order)
             }

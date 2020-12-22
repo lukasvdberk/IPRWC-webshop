@@ -16,6 +16,9 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [CartComponent, CartItemComponent, CartOrderComponent],
+  exports: [
+    CartItemComponent
+  ],
   imports: [
     CommonModule,
     ProductModule,

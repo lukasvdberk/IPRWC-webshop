@@ -17,7 +17,8 @@ export class OrdersComponent implements OnInit {
     this.customerService.getCustomer().then((customer) => {
       if(customer !== undefined) {
         this.orderService.getOrdersOfCustomer(customer).subscribe((orders) => {
-          this.orders = orders
+          // @ts-ignore
+          this.orders = orders.reverse()
         }, (error) => {
           this.toastService.showError({
             message: 'Failed to fetch your orders. Try logging in again.',

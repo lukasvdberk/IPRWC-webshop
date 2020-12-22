@@ -4,6 +4,14 @@ module.exports = class Order {
         this._productOrders = productOrders;
     }
 
+    get id() {
+        return this._id
+    }
+
+    set id(value) {
+        this._id = value;
+    }
+
     get customer() {
         return this._customer;
     }
@@ -31,6 +39,7 @@ module.exports = class Order {
 
     toJSON() {
         return {
+            id: this.id,
             customer: this.customer,
             orderedOn: this.orderedOn,
             productOrders: this.productOrders

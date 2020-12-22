@@ -1,0 +1,9 @@
+<div *ngIf="customer" class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ customer.firstName }} {{ customer.lastName }}</h5>
+    <p>Email: {{ customer.user.email }}</p>
+    <p>Address: {{ customer.street }} {{ customer.streetNumber }}</p>
+    <p>Postal: {{ customer.postalCode }}</p>
+    <p>Phone: {{ customer.phoneNumber}}</p>
+  </div>
+</div>

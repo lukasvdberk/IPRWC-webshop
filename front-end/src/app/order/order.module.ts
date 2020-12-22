@@ -7,10 +7,16 @@ import {OrderService} from "./order.service";
 import { OrdersComponent } from './orders/orders.component';
 import { OrderItemComponent } from './order-item/order-item.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
+import {CustomerModule} from "../customer/customer.module";
+import {ProductModule} from "../product/product.module";
+import {CartModule} from "../cart/cart.module";
 
 const routes: Routes = [
   {
     path: 'place-order', component: PlaceOrderComponent, canActivate: [RequiresUserGuard]
+  },
+  {
+    path: 'detail/:orderId', component: OrderDetailComponent, canActivate: [RequiresUserGuard]
   },
   {
     path: 'orders', component: OrdersComponent, canActivate: [RequiresUserGuard]
@@ -26,7 +32,10 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    CustomerModule,
+    ProductModule,
+    CartModule
   ],
   providers: [
     OrderService

@@ -6,6 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {CustomerService} from "./customer.service";
 import {AuthenticationModule} from "../authentication/authentication.module";
 import { CustomerSigningComponent } from './customer-signing/customer-signing.component';
+import { CustomerComponent } from './customer/customer.component';
 
 const routes: Routes = [
   {
@@ -17,12 +18,16 @@ const routes: Routes = [
   declarations: [
     CustomerRegisterComponent,
     CustomerSigningComponent,
+    CustomerComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
     AuthenticationModule
+  ],
+  exports: [
+    CustomerComponent
   ],
   providers: [
     CustomerService

@@ -1,0 +1,21 @@
+<div class="container" *ngIf="order">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      <h1>Your customer information</h1>
+    </div>
+    <div class="col-12 col-lg-8">
+      <app-customer [customer]="order.customer"></app-customer>
+    </div>
+    <div class="col-12 col-lg-8">
+      <h1>The products you ordered</h1>
+      <span>Order total: &euro; {{ calculateTotal() }}</span>
+    </div>
+    <div class="col-12 col-lg-8" *ngFor="let cartItem of order.productOrders;">
+      <app-cart-item
+        [class]="'order-items'"
+        [cartItem]="cartItem"
+        [editable]="false">
+      </app-cart-item>
+    </div>
+  </div>
+</div>

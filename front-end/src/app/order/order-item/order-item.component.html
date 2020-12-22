@@ -10,6 +10,6 @@
     <span>&euro; {{ calculateTotal() }} </span>
   </div>
   <div class="col-3">
-    <a routerLink="" class="btn btn-dark float-right">Order details</a>
+    <a [routerLink]="['', 'order', 'detail', order.id]" class="btn btn-dark float-right">Order details</a>
   </div>
 </div>
