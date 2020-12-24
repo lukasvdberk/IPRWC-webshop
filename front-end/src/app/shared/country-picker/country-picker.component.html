@@ -1,0 +1,11 @@
+<select class="selectpicker"
+        data-live-search="true"
+        (change)="onCountrySelected($event)">
+  <option
+    *ngFor="let country of countries"
+    [attr.data-tokens]="country.name"
+    [value]="country.name"
+    (click)="onCountrySelected(country)">
+    {{country.name}}
+  </option>
+</select>

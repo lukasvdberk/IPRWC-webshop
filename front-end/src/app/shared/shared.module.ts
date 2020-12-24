@@ -24,6 +24,7 @@ import { CountryPickerComponent } from './country-picker/country-picker.componen
     mediaUrl,
     ToastComponent,
     NavbarComponent,
+    CountryPickerComponent,
   ],
 })
 export class SharedModule { }

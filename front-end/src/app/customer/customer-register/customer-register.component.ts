@@ -10,6 +10,7 @@ import {OrderItem} from "../../shared/models/order-item";
 })
 export class CustomerRegisterComponent implements OnInit {
   errorMessage = ''
+  selectedCountry: string | undefined
 
   @Output() registered: EventEmitter<void> = new EventEmitter();
 
@@ -20,14 +21,18 @@ export class CustomerRegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onCountrySelected(country: any) {
+    this.selectedCountry = country.name
+  }
+
   onSubmit() {
     const customer = this.orderForm.form.value
-    console.log(customer)
 
     customer.user = {
       email: this.orderForm.form.value.email,
       password: this.orderForm.form.value.password,
     }
+    customer.country = this.selectedCountry
     this.customerService.registerCustomer(
       customer
     ).subscribe(

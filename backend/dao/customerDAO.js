@@ -34,7 +34,6 @@ module.exports = class CustomerDAO {
                     customerFromDatabase.street,
                     customerFromDatabase.street_number,
                     customerFromDatabase.postal_code,
-                    customerFromDatabase.street_number,
                     customerFromDatabase.city,
                     customerFromDatabase.country,
                     user
