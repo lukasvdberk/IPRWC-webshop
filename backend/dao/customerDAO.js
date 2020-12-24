@@ -5,11 +5,11 @@ const User = require('../models/user')
 module.exports = class CustomerDAO {
     static async saveCustomer(customer) {
         const customerSaveQueryResult = await Database.executeSQLStatement(
-            `INSERT INTO public.customer (user_id, customer_id, first_name, last_name, street, 
-                street_number, postal_code, customer_since, phone_number) 
-             VALUES ($1, DEFAULT, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP, $7)`,
+            `INSERT INTO customer (user_id, customer_id, first_name, last_name, street, 
+                street_number, postal_code, customer_since, phone_number, city, country) 
+             VALUES ($1, DEFAULT, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP, $7, $8, $9)`,
             customer.user.id, customer.firstName, customer.lastName, customer.street,
-            customer.streetNumber, customer.postalCode, customer.phoneNumber
+            customer.streetNumber, customer.postalCode, customer.phoneNumber, customer.city, customer.country
         )
 
         return customerSaveQueryResult.rowCount > 0
@@ -34,6 +34,9 @@ module.exports = class CustomerDAO {
                     customerFromDatabase.street,
                     customerFromDatabase.street_number,
                     customerFromDatabase.postal_code,
+                    customerFromDatabase.street_number,
+                    customerFromDatabase.city,
+                    customerFromDatabase.country,
                     user
                 )
                 customer.id = customerFromDatabase.customer_id

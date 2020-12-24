@@ -26,6 +26,8 @@ CREATE TABLE customer
     last_name VARCHAR(255),
     street VARCHAR(255),
     street_number BIGINT,
+    city VARCHAR(255),
+    country VARCHAR(255),
     postal_code VARCHAR(7),
     customer_since DATE,
     phone_number VARCHAR(12),

@@ -24,7 +24,8 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
-    AuthenticationModule
+    AuthenticationModule,
+
   ],
   exports: [
     CustomerComponent

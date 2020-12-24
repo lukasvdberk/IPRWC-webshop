@@ -8,5 +8,7 @@ export interface Customer {
   street: string;
   streetNumber: number;
   postalCode: string;
+  city: string
+  country: string
   user: User
 }

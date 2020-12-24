@@ -115,10 +115,33 @@
       />
     </label>
     <span class="help-block" *ngIf="!streetNumber.valid && streetNumber.touched">
-        Please enter a valid streetnumber
+        Please enter a valid street number
     </span>
   </div>
-
+  <div class="form-group">
+    <label>
+      City
+      <input
+        class="form-control"
+        type="text"
+        name="city"
+        required
+        ngModel
+        #city="ngModel"
+      />
+    </label>
+    <span class="help-block" *ngIf="!city.valid && city.touched">
+        Please enter a valid city
+    </span>
+  </div>
+  <div class="form-group">
+    <label>
+      Country
+    </label>
+    <span class="help-block" *ngIf="!city.valid && city.touched">
+        Please enter a valid city
+    </span>
+  </div>
   <div class="form-group">
     <label>
       Postal code
@@ -135,7 +158,7 @@
       />
     </label>
     <span class="help-block" *ngIf="!postalCode.valid && postalCode.touched">
-        Please enter a valid postalcode
+        Please enter a valid postal code
     </span>
   </div>
   <div *ngIf="errorMessage !== ''" class="alert alert-danger" role="alert">

@@ -1,11 +1,13 @@
 module.exports = class Customer {
-    constructor(firstName, lastName, phoneNumber, street, streetNumber, postalCode, user) {
+    constructor(firstName, lastName, phoneNumber, street, streetNumber, postalCode, city, country ,user) {
         this._firstName = firstName
         this._lastName = lastName
         this._phoneNumber = phoneNumber
         this._street = street
         this._streetNumber = streetNumber
         this._postalCode = postalCode
+        this._city = city
+        this._country = country
         this._user = user
     }
 
@@ -89,6 +91,22 @@ module.exports = class Customer {
         this._phoneNumber = value;
     }
 
+    get city() {
+        return this._city;
+    }
+
+    set city(value) {
+        this._city = value;
+    }
+
+    get country() {
+        return this._country;
+    }
+
+    set country(value) {
+        this._country = value;
+    }
+
     toJSON() {
         return {
             id: this.id,
@@ -99,6 +117,8 @@ module.exports = class Customer {
             streetNumber: this.streetNumber,
             phoneNumber: this.phoneNumber,
             postalCode: this.postalCode,
+            city: this.city,
+            country: this.country
         }
     }
 }

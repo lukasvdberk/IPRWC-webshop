@@ -45,6 +45,8 @@ module.exports = class AuthenticationController {
         const phoneNumber = req.body.phoneNumber
         const street = req.body.street
         const streetNumber = req.body.streetNumber
+        const city = req.body.city
+        const country = req.body.country
         const postalCode = req.body.postalCode
 
         if (!password ||
@@ -54,6 +56,8 @@ module.exports = class AuthenticationController {
             !phoneNumber ||
             !street ||
             !streetNumber ||
+            !country ||
+            !city ||
             !postalCode) {
             return ApiResponse.errorResponse(404, 'Did not supply all customer information', res)
         }
@@ -73,6 +77,8 @@ module.exports = class AuthenticationController {
                                     street,
                                     streetNumber,
                                     postalCode,
+                                    city,
+                                    country,
                                     user
                                 )).then((ignored) => {
                                     return ApiResponse.successResponse({
