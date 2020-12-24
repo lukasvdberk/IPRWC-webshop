@@ -1,6 +1,7 @@
 const Database = require('./database')
 
 const ProductDAO = require('./productDAO')
+const CustomerDAO = require('./customerDAO')
 
 const Order = require('../models/order')
 const ProductOrder = require('../models/productOrder')
@@ -8,7 +9,51 @@ const Product = require('../models/product')
 
 
 module.exports = class OrderDAO {
+    static orderQueryResultToModels() {
+
+    }
+
     static async getAllOrders() {
+        const ordersFromUserQueryResult = await Database.executeSQLStatement(
+            'SELECT * FROM "order"',
+        )
+
+        let orderModels = []
+        // TODO refactor
+        if (ordersFromUserQueryResult.rowCount > 0) {
+            for (let i = 0; i < ordersFromUserQueryResult.rows.length; i++) {
+                const orderQueryResult = ordersFromUserQueryResult.rows[i]
+
+                const productOrdersQueryResult = await Database.executeSQLStatement(
+                    `
+                    SELECT *
+                    FROM order_rule
+                    JOIN product p on order_rule.product_id = p.product_id
+                    WHERE order_id=$1
+                    `,
+                    orderQueryResult.order_id
+                )
+                const productOrders = []
+                if(productOrdersQueryResult.rowCount > 0) {
+                    const products = ProductDAO.queryResultToModel(productOrdersQueryResult)
+
+                    for (let j = 0; j < products.length; j++) {
+                        productOrders.push(new ProductOrder(
+                            products[j],
+                            productOrdersQueryResult.rows[j].amount,
+                            productOrdersQueryResult.rows[j].size,
+                        ))
+                    }
+                }
+                // TODO set customer
+                const customerOfOrder = await CustomerDAO.getCustomerByCustomerId(orderQueryResult.customer_id)
+                let order = new Order(customerOfOrder, productOrders)
+                order.id = orderQueryResult.order_id
+                order.orderedOn = orderQueryResult.ordered_on
+                orderModels.push(order)
+            }
+        }
+        return orderModels
     }
 
     static async getAllOrdersFromCustomer(customer) {

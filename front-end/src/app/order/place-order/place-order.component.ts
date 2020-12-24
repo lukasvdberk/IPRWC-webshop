@@ -12,7 +12,6 @@ import {ToastService} from "../../shared/toast-service/toast.service";
   styleUrls: ['./place-order.component.css']
 })
 export class PlaceOrderComponent implements OnInit {
-  errorMessage = ''
   shoppingCartItems: OrderItem[] | undefined
   constructor(private cartService: CartService, private orderService: OrderService, private customerService: CustomerService,
               private router: Router, private toastService: ToastService) { }
@@ -35,6 +34,7 @@ export class PlaceOrderComponent implements OnInit {
             durationInSeconds: 3
           }
         )
+        this.cartService.clearShoppingCart()
         setTimeout(
           () => {
           this.router.navigate(['order', 'orders'])

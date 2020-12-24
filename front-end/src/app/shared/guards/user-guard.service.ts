@@ -7,7 +7,7 @@ import {GuardUtil} from "./guard-util";
 @Injectable({
   providedIn: 'root'
 })
-export class RequiresUserGuard implements CanActivate {
+export class UserGuard implements CanActivate {
   constructor(private authService: AuthenticationService, private router: Router) {}
 
   canActivate(

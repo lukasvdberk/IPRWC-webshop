@@ -49,10 +49,12 @@ export class CartService {
 
   setCartItems(items: OrderItem[]) {
     localStorage.setItem('shoppingCartItems', JSON.stringify(items));
+    this.cartSubject.next(items)
   }
 
   clearShoppingCart() {
     localStorage.removeItem('shoppingCartItems')
+    this.cartSubject.next([])
   }
 }
 

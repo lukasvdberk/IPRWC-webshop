@@ -9,7 +9,11 @@ const ApiResponse = require('./utils/apiResponse')
 
 module.exports = class OrderController {
     static async getAllOrders(req, res, next) {
-
+        OrderDAO.getAllOrders().then((orders) => {
+            return ApiResponse.successResponse(orders, res)
+        }).catch((ignored) => {
+            return ApiResponse.errorResponse(500, 'Failed to fetch orders', res)
+        })
     }
 
     static canAccessOrders(req) {
