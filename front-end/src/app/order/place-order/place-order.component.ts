@@ -21,8 +21,15 @@ export class PlaceOrderComponent implements OnInit {
   }
 
   onPayed(): void {
-    this.customerService.getCustomer().then((customer) => {
+    this.customerService.getCustomer().subscribe((customer) => {
       const cartItems = this.cartService.getShoppingCartItems()
+      if(cartItems.length === 0) {
+        this.toastService.showError({
+          durationInSeconds: 3,
+          message: 'You have no items in your shopping cart. First add items then come back to this page.'
+        })
+        return
+      }
       this.orderService.placeOrder({
         // @ts-ignore
         customer: customer,

@@ -26,6 +26,7 @@
 
     <span *ngIf="customer" class="navbar-text">
       Welcome back {{customer.firstName}}
+      <button class="btn btn-dark" (click)="logout()">Logout</button>
     </span>
     <a [routerLink]="['/cart', 'items']" class="navbar-text">
       <img src="/assets/icons/cart.svg" alt="Shopping cart icon">

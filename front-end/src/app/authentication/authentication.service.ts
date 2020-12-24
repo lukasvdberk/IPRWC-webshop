@@ -44,4 +44,9 @@ export class AuthenticationService {
       return '';
     }
   }
+
+  logout() {
+    localStorage.removeItem('jwtKey')
+    localStorage.removeItem('isAdmin');
+  }
 }

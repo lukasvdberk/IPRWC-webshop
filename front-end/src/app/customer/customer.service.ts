@@ -25,26 +25,8 @@ export class CustomerService {
       ));
   }
 
-  private saveCustomer(customer: Customer): void {
-    // we never want to save the password to localstorage
-    customer.user.password = ""
-    localStorage.setItem('currentCustomer', JSON.stringify(customer))
-  }
-
-  async getCustomer(): Promise<Customer | undefined>{
-    try {
-      const customer = localStorage.getItem('currentCustomer')
-      if(!customer) {
-        // if local does not exist then we fetch from remote
-        const result = await this.httpClient.get('customer/me').toPromise()
-
-        this.saveCustomer(result as Customer)
-        return result as Customer
-      }
-      return JSON.parse(customer) as Customer
-    }
-     catch (e) {
-      return undefined
-    }
+  getCustomer(): Observable<Customer>{
+      // if local does not exist then we fetch from remote
+      return this.httpClient.get<Customer>('customer/me')
   }
 }

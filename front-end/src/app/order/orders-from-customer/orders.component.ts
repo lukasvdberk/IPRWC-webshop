@@ -14,18 +14,18 @@ export class OrdersComponent implements OnInit {
   constructor(private orderService: OrderService, private customerService: CustomerService, private toastService: ToastService) { }
 
   ngOnInit(): void {
-    this.customerService.getCustomer().then((customer) => {
-      if(customer !== undefined) {
-        this.orderService.getOrdersOfCustomer(customer).subscribe((orders) => {
-          // @ts-ignore
-          this.orders = orders.reverse()
-        }, (error) => {
-          this.toastService.showError({
-            message: 'Failed to fetch your orders-from-customer. Try logging in again.',
-            durationInSeconds: 5
-          })
+    this.customerService.getCustomer().subscribe((customer) => {
+      this.orderService.getOrdersOfCustomer(customer).subscribe((orders) => {
+        // @ts-ignore
+        this.orders = orders.reverse()
+      }, (error) => {
+        this.toastService.showError({
+          message: 'Failed to fetch your orders-from-customer. Try logging in again.',
+          durationInSeconds: 5
         })
-      }
+      })
+    }, error => {
+      // TODO add error handling
     })
   }
 

@@ -4,6 +4,7 @@ import {CustomerService} from "../../customer/customer.service";
 import {CartService} from "../../cart/cart.service";
 import {OrderItem} from "../models/order-item";
 import {AuthenticationService} from "../../authentication/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -15,10 +16,11 @@ export class NavbarComponent implements OnInit {
   cartItems: OrderItem[] | undefined
   isUserAdmin: boolean | undefined
 
-  constructor(private customerService: CustomerService, private cartService: CartService, private authService: AuthenticationService) { }
+  constructor(private customerService: CustomerService, private cartService: CartService, private authService: AuthenticationService,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.customerService.getCustomer().then(customer => {
+    this.customerService.getCustomer().subscribe(customer => {
       this.customer = customer
     })
     this.cartItems = this.cartService.getShoppingCartItems()
@@ -28,4 +30,10 @@ export class NavbarComponent implements OnInit {
     })
   }
 
+  logout(): void {
+    this.authService.logout()
+    this.router.navigateByUrl('/').then(() => {
+      window.location.reload();
+    })
+  }
 }

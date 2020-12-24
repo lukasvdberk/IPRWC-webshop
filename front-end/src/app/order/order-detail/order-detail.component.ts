@@ -30,10 +30,10 @@ export class OrderDetailComponent implements OnInit {
        if(this.isAdmin) {
          this.orderService.getAllOrders().subscribe(this.successOrderResponse.bind(this), this.errorSuccessOrderResponse.bind(this))
        } else {
-         this.customerService.getCustomer().then((customer) => {
-           if (customer) {
-             this.orderService.getOrdersOfCustomer(customer).subscribe(this.successOrderResponse.bind(this), this.errorSuccessOrderResponse.bind(this))
-           }
+         this.customerService.getCustomer().subscribe((customer) => {
+           this.orderService.getOrdersOfCustomer(customer).subscribe(this.successOrderResponse.bind(this), this.errorSuccessOrderResponse.bind(this))
+         }, error => {
+           // TODO add error handler
          })
        }
     });

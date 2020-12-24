@@ -17,6 +17,9 @@ export class AdminSigningComponent implements OnInit {
   }
 
   onSigning() {
-    this.router.navigateByUrl(this.redirectUrl)
+    this.router.navigateByUrl(this.redirectUrl).then(() => {
+      // So the navigation bar is correctly updated
+      window.location.reload();
+    })
   }
 }
