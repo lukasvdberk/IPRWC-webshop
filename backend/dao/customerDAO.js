@@ -59,16 +59,21 @@ module.exports = class CustomerDAO {
     }
 
     static async getCustomerByCustomerId(customerId) {
-        const customerQueryResult = await Database.executeSQLStatement(
-            'SELECT * FROM customer WHERE customer_id=$1', customerId
-        )
+        try {
+            const customerQueryResult = await Database.executeSQLStatement(
+                'SELECT * FROM customer WHERE customer_id=$1', customerId
+            )
 
-        const customerUserQueryResult = await Database.executeSQLStatement(
-            `SELECT user_id, "user".email, is_admin
+            const customerUserQueryResult = await Database.executeSQLStatement(
+                `SELECT user_id, "user".email, is_admin
             FROM "user"
             WHERE user_id=$1`,
-            customerQueryResult.rows[0].user_id
-        )
-        return this.queryResultToModel(customerQueryResult, customerUserQueryResult)[0]
+                customerQueryResult.rows[0].user_id
+            )
+
+            return this.queryResultToModel(customerQueryResult, customerUserQueryResult)[0]
+        } catch(e) {
+            return undefined
+        }
     }
 }

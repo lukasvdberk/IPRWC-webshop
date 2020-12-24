@@ -45,7 +45,6 @@ module.exports = class OrderDAO {
                         ))
                     }
                 }
-                // TODO set customer
                 const customerOfOrder = await CustomerDAO.getCustomerByCustomerId(orderQueryResult.customer_id)
                 let order = new Order(customerOfOrder, productOrders)
                 order.id = orderQueryResult.order_id

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Order} from "../order";
+import {OrderService} from "../order.service";
+import {ToastService} from "../../shared/toast-service/toast.service";
 
 @Component({
   selector: 'app-all-orders-admin',
@@ -9,10 +11,17 @@ import {Order} from "../order";
 export class AllOrdersAdminComponent implements OnInit {
   orders: Order[] | undefined
 
-  constructor() { }
+  constructor(private orderService: OrderService, private toastService: ToastService) { }
 
   ngOnInit(): void {
-
+    this.orderService.getAllOrders().subscribe((allOrders) => {
+      this.orders = allOrders
+    }, error => {
+      this.toastService.showError({
+        message: 'Failed to fetch all the orders. Try again later.',
+        durationInSeconds: 4
+      })
+    })
   }
 
 }

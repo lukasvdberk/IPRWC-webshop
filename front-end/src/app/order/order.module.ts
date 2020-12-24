@@ -18,7 +18,7 @@ const routes: Routes = [
     path: 'place-order', component: PlaceOrderComponent, canActivate: [UserGuard]
   },
   {
-    path: 'orders/all', component: AllOrdersAdminComponent, canActivate: [AdminGuard]
+    path: 'all', component: AllOrdersAdminComponent, canActivate: [AdminGuard]
   },
   {
     path: 'detail/:orderId', component: OrderDetailComponent, canActivate: [UserGuard]

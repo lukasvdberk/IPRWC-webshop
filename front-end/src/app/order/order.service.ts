@@ -10,6 +10,7 @@ export class OrderService {
 
   constructor(private httpClient: HttpClient) { }
 
+  // Requires valid JWT Key
   placeOrder(order: Order): Observable<any>{
     let orderToSendToApi: Object[] = []
 
@@ -28,7 +29,13 @@ export class OrderService {
     )
   }
 
+  // Requires the customer.id to be the same as in the JWT key
   getOrdersOfCustomer(customer: Customer): Observable<Order[]> {
     return this.httpClient.get<Order[]>(`orders/user/` + customer.id)
+  }
+
+  // You can only fetch this if the user is an admin
+  getAllOrders(): Observable<Order[]> {
+    return this.httpClient.get<Order[]>('orders/all')
   }
 }
