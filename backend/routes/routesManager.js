@@ -20,8 +20,8 @@ router.put('/api/products/:productId/image/', AuthorizationUtil.isAuthenticatedA
 
 router.get('/api/customer/me', AuthorizationUtil.isAuthenticatedAsUser, CustomerController.getCustomer)
 // Customer getting orders-from-customer
-router.get('/api/orders-from-customer/user/:userId', AuthorizationUtil.isAuthenticatedAsUser, OrderController.getOrdersFromCustomer)
-router.post('/api/orders-from-customer/user/:userId', AuthorizationUtil.isAuthenticatedAsUser, OrderController.placeOrder)
+router.get('/api/orders/user/:userId', AuthorizationUtil.isAuthenticatedAsUser, OrderController.getOrdersFromCustomer)
+router.post('/api/orders/user/:userId', AuthorizationUtil.isAuthenticatedAsUser, OrderController.placeOrder)
 
 router.get('/api/orders-from-customer/all', AuthorizationUtil.isAuthenticatedAsAdmin, OrderController.getAllOrders)
 
