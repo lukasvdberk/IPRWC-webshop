@@ -37,12 +37,21 @@ module.exports = class Order {
         this._productOrders = value;
     }
 
+    get status() {
+        return this._status;
+    }
+
+    set status(value) {
+        this._status = value;
+    }
+
     toJSON() {
         return {
             id: this.id,
             customer: this.customer,
             orderedOn: this.orderedOn,
-            productOrders: this.productOrders
+            productOrders: this.productOrders,
+            status: this.status
         }
     }
 }

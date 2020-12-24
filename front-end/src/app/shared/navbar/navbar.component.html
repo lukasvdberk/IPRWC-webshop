@@ -10,8 +10,11 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/']">Products</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="customer">
         <a class="nav-link" [routerLink]="['', 'order', 'orders']">Orders</a>
+      </li>
+      <li class="nav-item" *ngIf="isUserAdmin">
+        <a class="nav-link text-light" [routerLink]="['', 'order', 'all']">See all orders</a>
       </li>
       <li class="nav-item" *ngIf="isUserAdmin">
         <a class="nav-link text-light" [routerLink]="['', 'products', 'manage']">Manage products</a>

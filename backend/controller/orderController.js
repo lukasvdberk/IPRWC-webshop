@@ -16,6 +16,32 @@ module.exports = class OrderController {
         })
     }
 
+    static isValidOrderStatus(orderStatus) {
+        return orderStatus === 'PROCESSING' ||
+            orderStatus === 'DELIVERING' ||
+            orderStatus === 'DELIVERED'
+    }
+
+    static updateOrderStatus(req, res, next) {
+        const orderId = req.params.orderId
+        const newOrderStatus = req.body.status
+
+        if(!OrderController.isValidOrderStatus(newOrderStatus)) {
+            return ApiResponse.errorResponse(
+                400, `Invalid order status. Please use PROCESSING or DELIVERING or DELIVERED`, res
+            )
+        }
+        OrderDAO.updateStatusOfOrder(orderId, newOrderStatus).then((isUpdated) => {
+            if (isUpdated) {
+                return ApiResponse.successResponse({}, res)
+            } else {
+                return ApiResponse.errorResponse(500, 'Failed to update status of order', res)
+            }
+        }).catch((order) => {
+            return ApiResponse.errorResponse(500, 'Failed to update status of order', res)
+        })
+    }
+
     static canAccessOrders(req) {
         // Can only access orders-from-customer if the user id is the same as in the JWT token or the user is admin
         const userId = req.params.userId

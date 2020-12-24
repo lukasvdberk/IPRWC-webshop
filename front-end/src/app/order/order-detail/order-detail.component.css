@@ -1,4 +1,7 @@
+.col-12, h1, span {
+  margin-top: 10px;
+}
+
 h1, span {
   color: white;
-  margin-top: 10px;
 }

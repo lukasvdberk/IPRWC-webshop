@@ -1,0 +1,21 @@
+<form class="form-controls mt-2" (ngSubmit)="onSubmit()" #orderStatusForm="ngForm" ngForm *ngIf="order">
+  <label>
+    Order status
+    <select
+      name="status"
+      class="form-controls"
+      #select
+      ngModel
+      required
+      select
+      [(ngModel)]="order.status">
+      <option
+        *ngFor="let status of orderStatusOptions"
+        [value]="status.value">
+        {{status.name}}
+      </option>
+    </select>
+  </label>
+  <button class="btn btn-dark" [disabled]="!orderStatusForm.valid">Update status</button>
+
+</form>

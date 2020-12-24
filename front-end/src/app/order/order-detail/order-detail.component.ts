@@ -5,6 +5,7 @@ import {OrderService} from "../order.service";
 import {Order} from "../order";
 import {OrderCartUtil} from "../../shared/order-cart-util";
 import {ToastService} from "../../shared/toast-service/toast.service";
+import {AuthenticationService} from "../../authentication/authentication.service";
 
 @Component({
   selector: 'app-order-detail',
@@ -13,12 +14,14 @@ import {ToastService} from "../../shared/toast-service/toast.service";
 })
 export class OrderDetailComponent implements OnInit {
   order: Order | undefined
+  isAdmin: boolean | undefined = false
+
   constructor(private route: ActivatedRoute, private customerService: CustomerService, private orderService: OrderService,
-              private toastService: ToastService) { }
+              private toastService: ToastService, private  authService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.isAdmin()
     this.route.params.subscribe(params => {
-
        this.customerService.getCustomer().then((customer) => {
          if (customer) {
            this.orderService.getOrdersOfCustomer(customer).subscribe((orders) => {

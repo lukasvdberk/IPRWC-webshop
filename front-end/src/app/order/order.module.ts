@@ -12,6 +12,8 @@ import {ProductModule} from "../product/product.module";
 import {CartModule} from "../cart/cart.module";
 import { AllOrdersAdminComponent } from './all-orders-admin/all-orders-admin.component';
 import {AdminGuard} from "../shared/guards/admin.guard";
+import { UpdateOrderStatusAdminComponent } from './update-order-status-admin/update-order-status-admin.component';
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
@@ -34,14 +36,16 @@ const routes: Routes = [
     OrdersComponent,
     OrderItemComponent,
     OrderDetailComponent,
-    AllOrdersAdminComponent
+    AllOrdersAdminComponent,
+    UpdateOrderStatusAdminComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     CustomerModule,
     ProductModule,
-    CartModule
+    CartModule,
+    FormsModule
   ],
   providers: [
     OrderService

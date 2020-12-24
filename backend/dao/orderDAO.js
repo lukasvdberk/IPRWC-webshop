@@ -49,6 +49,7 @@ module.exports = class OrderDAO {
                 let order = new Order(customerOfOrder, productOrders)
                 order.id = orderQueryResult.order_id
                 order.orderedOn = orderQueryResult.ordered_on
+                order.status = orderQueryResult.status
                 orderModels.push(order)
             }
         }
@@ -90,16 +91,28 @@ module.exports = class OrderDAO {
                 let order = new Order(customer, productOrders)
                 order.id = orderQueryResult.order_id
                 order.orderedOn = orderQueryResult.ordered_on
+                order.status = orderQueryResult.status
                 orderModels.push(order)
             }
         }
         return orderModels
     }
 
+    static async updateStatusOfOrder(orderId, status) {
+        const updatedQueryOrderResult = await Database.executeSQLStatement(
+            `UPDATE "order"
+                SET status = $1
+            WHERE order_id = $2`,
+            status, orderId
+        )
+
+        return updatedQueryOrderResult.rowCount > 0
+    }
+
     static async saveOrder(order) {
         const newOrderQueryResult = await Database.executeSQLStatement(
-            'INSERT INTO "order" (customer_id, ordered_on) ' +
-            'VALUES ($1::integer, CURRENT_TIMESTAMP) returning order_id',
+            `INSERT INTO "order" (customer_id, ordered_on, status)
+            VALUES ($1::integer, CURRENT_TIMESTAMP, 'PROCESSING') RETURNING order_id`,
             order.customer.id
         )
 

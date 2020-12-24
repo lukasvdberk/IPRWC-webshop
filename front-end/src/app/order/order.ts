@@ -5,6 +5,7 @@ import {TShirtOrderItem} from "../shared/models/t-shirt-order-item";
 export interface Order {
   id?: number;
   orderedOn?: Date
+  status?: string
   customer: Customer;
   productOrders: OrderItem[];
 }

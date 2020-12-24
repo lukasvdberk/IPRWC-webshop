@@ -22,6 +22,8 @@ router.get('/api/customer/me', AuthorizationUtil.isAuthenticatedAsUser, Customer
 // Customer getting orders-from-customer
 router.get('/api/orders/user/:userId', AuthorizationUtil.isAuthenticatedAsUser, OrderController.getOrdersFromCustomer)
 router.get('/api/orders/all', AuthorizationUtil.isAuthenticatedAsAdmin, OrderController.getAllOrders)
+router.patch('/api/order/:orderId/status', AuthorizationUtil.isAuthenticatedAsAdmin, OrderController.updateOrderStatus)
+
 
 router.post('/api/orders/user/:userId', AuthorizationUtil.isAuthenticatedAsUser, OrderController.placeOrder)
 

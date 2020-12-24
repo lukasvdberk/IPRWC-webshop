@@ -38,6 +38,7 @@ CREATE TABLE "order"
 (
     order_id SERIAL,
     customer_id BIGINT,
+    status TEXT,
     ordered_on DATE,
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
     PRIMARY KEY (order_id)
@@ -53,4 +54,4 @@ CREATE TABLE order_rule
     FOREIGN KEY (order_id) REFERENCES "order"(order_id),
     FOREIGN KEY (product_id) REFERENCES product(product_id),
     PRIMARY KEY (order_rule_id)
-)
+);
