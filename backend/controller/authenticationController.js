@@ -39,55 +39,31 @@ module.exports = class AuthenticationController {
     static register (req, res, next) {
         const password = req.body.password
 
-        const firstName = req.body.firstName
-        const lastName = req.body.lastName
         const email = req.body.email
-        const phoneNumber = req.body.phoneNumber
-        const street = req.body.street
-        const streetNumber = req.body.streetNumber
-        const city = req.body.city
-        const country = req.body.country
-        const postalCode = req.body.postalCode
 
-        if (!password ||
-            !firstName ||
-            !lastName ||
-            !email ||
-            !phoneNumber ||
-            !street ||
-            !streetNumber ||
-            !country ||
-            !city ||
-            !postalCode) {
-            return ApiResponse.errorResponse(404, 'Did not supply all customer information', res)
+        if (!password || !email) {
+            return ApiResponse.errorResponse(404, 'Did not supply email and password', res)
         }
 
         AuthorizationUtil.hashPassword(password).then((hashedPassword) => {
             const user = new User(email)
 
+            // is used to check if not another use already has this email
             UserDAO.getUserByEmail(email).then((userObj) => {
-                if (userObj === undefined) {
+                if (!userObj) {
                     UserDAO.saveUser(user, hashedPassword).then((success) => {
-                        if (success) {
-                            UserDAO.getUserByEmail(email).then((user) => {
-                                CustomerDAO.saveCustomer(new Customer(
-                                    firstName,
-                                    lastName,
-                                    phoneNumber,
-                                    street,
-                                    streetNumber,
-                                    postalCode,
-                                    city,
-                                    country,
-                                    user
-                                )).then((ignored) => {
-                                    return ApiResponse.successResponse({
-                                        key: AuthorizationUtil.createJWT(user.id, user.email, false),
-                                        isAdmin: false
-                                    }, res)
-                                })
-                            })
-                        }
+                        // We need to call this again since then the id will be set
+                        UserDAO.getUserByEmail(email).then((user) => {
+                            if (success) {
+                                return ApiResponse.successResponse({
+                                    key: AuthorizationUtil.createJWT(user.id, user.email, false),
+                                    isAdmin: false
+                                }, res)
+                            } else {
+                                return ApiResponse.errorResponse(
+                                    500, 'Failed to register user', res)
+                            }
+                        })
                     })
                 } else {
                     return ApiResponse.errorResponse(

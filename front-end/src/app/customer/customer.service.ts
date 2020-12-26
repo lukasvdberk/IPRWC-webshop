@@ -3,7 +3,7 @@ import {Customer} from "./customer";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {AuthenticationService} from "../authentication/authentication.service";
-import {tap} from "rxjs/operators";
+import {mergeMap, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,9 @@ export class CustomerService {
         (response: any) => {
           this.authService.saveAuthentication(response.key, response.isAdmin)
         }
-      ));
+      )).pipe(mergeMap((response) => {
+        return this.httpClient.post('customer', customerToSend)
+      }));
   }
 
   getCustomer(): Observable<Customer>{

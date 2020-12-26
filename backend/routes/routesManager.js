@@ -19,6 +19,8 @@ router.delete('/api/products/:productId', AuthorizationMiddleware.isAuthenticate
 router.put('/api/products/:productId/image/', AuthorizationMiddleware.isAuthenticatedAsAdmin ,ProductController.addImageToProduct)
 
 router.get('/api/customer/me', AuthorizationMiddleware.isAuthenticatedAsUser, CustomerController.getCustomer)
+router.post('/api/customer', AuthorizationMiddleware.isAuthenticatedAsUser, CustomerController.saveCustomer)
+
 // Customer getting orders-from-customer
 router.get('/api/orders/user/:userId', AuthorizationMiddleware.isAuthenticatedAsUser, OrderController.getOrdersFromCustomer)
 router.get('/api/orders/all', AuthorizationMiddleware.isAuthenticatedAsAdmin, OrderController.getAllOrders)
