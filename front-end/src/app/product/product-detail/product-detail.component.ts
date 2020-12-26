@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ProductService} from "../product.service";
 import {Product} from "../product";
 import {NgForm} from "@angular/forms";
@@ -31,11 +31,10 @@ export class ProductDetailComponent implements OnInit {
   ]
   product: Product | any = undefined;
   constructor(private activatedRoute: ActivatedRoute, private productService: ProductService,
-              private cartService: CartService, private toastService: ToastService) { }
+              private cartService: CartService, private toastService: ToastService, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      // TODO fetch product by id
       const productId = params['id']
       this.productService.getProductById(productId as number).subscribe((product) => {
         if(product === undefined) {
@@ -47,7 +46,7 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
-  onSubmit() {
+  addToShoppingCart() {
     // TODO add to shopping cart or go to finalize order page.
     const isAddedToCart = this.cartService.addProductToShoppingCart({
       size: this.orderForm.value.size,
@@ -65,6 +64,13 @@ export class ProductDetailComponent implements OnInit {
         message: 'Could not add product, please try again later'
       })
     }
+    return isAddedToCart
   }
 
+  addToShoppingCartAndGoToOrderPage() {
+    const isAddedToCart = this.addToShoppingCart()
+    if (isAddedToCart) {
+      this.router.navigate(['order', 'place-order'])
+    }
+  }
 }

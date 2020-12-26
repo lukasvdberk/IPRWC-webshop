@@ -9,7 +9,7 @@
       <h1>{{ product.name }}</h1>
       <p>{{ product.description }}</p>
       <p>&euro; {{ product.price }}</p>
-      <form class="form-controls" (ngSubmit)="onSubmit()" #orderForm="ngForm" ngForm>
+      <form class="form-controls" #orderForm="ngForm" ngForm>
         <label>
           Amount:
           <input
@@ -37,8 +37,8 @@
             </option>
           </select>
         </label>
-        <button type="submit" class="btn btn-dark" [disabled]="!orderForm.valid">Add to shopping cart</button>
-        <button class="btn btn-light" [disabled]="!orderForm.valid">Add to shopping cart and place order</button>
+        <button type="submit" class="btn btn-dark"  [disabled]="!orderForm.valid" (click)="addToShoppingCart()">Add to shopping cart</button>
+        <button class="btn btn-light" [disabled]="!orderForm.valid" (click)="addToShoppingCartAndGoToOrderPage()">Add to shopping cart and place order</button>
       </form>
     </div>
   </div>
