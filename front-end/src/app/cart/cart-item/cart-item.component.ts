@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {OrderItem} from "../../shared/models/order-item";
+import {TShirtOrderItem} from "../../shared/models/t-shirt-order-item";
 
 @Component({
   selector: 'app-cart-item',
@@ -9,7 +10,7 @@ import {OrderItem} from "../../shared/models/order-item";
 export class CartItemComponent implements OnInit {
   amount = 1
   @Input() editable = true
-  @Input() cartItem: OrderItem | undefined
+  @Input() cartItem: OrderItem | TShirtOrderItem | undefined
   @Output() updated: EventEmitter<OrderItem> = new EventEmitter();
   @Output() removed: EventEmitter<OrderItem> = new EventEmitter();
 
@@ -31,5 +32,9 @@ export class CartItemComponent implements OnInit {
       this.cartItem.amount = this.amount
       this.updated.emit(this.cartItem)
     }
+  }
+
+  isTShirtCartItem(cartItem: any) {
+    return (<TShirtOrderItem>cartItem) !== undefined;
   }
 }

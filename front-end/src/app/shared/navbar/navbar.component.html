@@ -23,14 +23,19 @@
         <a class="nav-link text-light" [routerLink]="['admin', 'signing']">Admin panel</a>
       </li>
     </ul>
-
-    <span *ngIf="customer" class="navbar-text">
-      Welcome back {{customer.firstName}}
-      <button class="btn btn-dark" (click)="logout()">Logout</button>
-    </span>
-    <a [routerLink]="['/cart', 'items']" class="navbar-text">
+    <a [routerLink]="['/cart', 'items']" class="navbar-text mobile-nav-item">
+      <span>Cart </span>
       <img src="/assets/icons/cart.svg" alt="Shopping cart icon">
       <span *ngIf="cartItems" class="badge badge-dark">{{cartItems.length}}</span>
     </a>
+    <span *ngIf="customer" class="navbar-text mobile-nav-item">
+      Welcome back {{customer.firstName}}
+    </span>
+    <span *ngIf="customer" class="navbar-text mobile-nav-item">
+      <button class="btn btn-light" (click)="logout()">Logout</button>
+    </span>
+    <span *ngIf="!customer" class="navbar-text mobile-nav-item">
+      <button class="btn btn-light" routerLink="/customer/signing">Login</button>
+    </span>
   </div>
 </nav>
