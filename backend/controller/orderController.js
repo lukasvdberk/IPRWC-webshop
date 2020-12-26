@@ -16,6 +16,20 @@ module.exports = class OrderController {
         })
     }
 
+    static getOrderById(req, res, next) {
+        const orderId = req.params.orderId
+        OrderDAO.getOrderById(orderId).then((order) => {
+            // only the user that made the order can fetch the order or an admin
+            if (order.customer.user.id == req.user.id || req.user.isAdmin) {
+                return ApiResponse.successResponse(order, res)
+            } else {
+                return ApiResponse.errorResponse(403, 'Not allowed', res)
+            }
+        }).catch((ignored) => {
+            return ApiResponse.errorResponse(500, 'Failed to fetch order', res)
+        })
+    }
+
     static isValidOrderStatus(orderStatus) {
         return orderStatus === 'PROCESSING' ||
             orderStatus === 'DELIVERING' ||

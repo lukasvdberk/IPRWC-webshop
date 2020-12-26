@@ -39,6 +39,10 @@ export class OrderService {
     return this.httpClient.get<Order[]>('orders/all')
   }
 
+  getOrderById(orderId: number): Observable<Order> {
+    return this.httpClient.get<Order>(`order/${orderId}`)
+  }
+
   updateOrderStatus(orderId: number, newStatus: string) {
     return this.httpClient.patch(
       `order/${orderId}/status`,

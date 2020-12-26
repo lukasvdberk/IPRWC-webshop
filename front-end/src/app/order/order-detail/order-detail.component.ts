@@ -27,34 +27,16 @@ export class OrderDetailComponent implements OnInit {
        this.orderId = +params['orderId']
 
        // If we are an admin we have access to all orders and want to filter through that
-       if(this.isAdmin) {
-         this.orderService.getAllOrders().subscribe(this.successOrderResponse.bind(this), this.errorSuccessOrderResponse.bind(this))
-       } else {
-         this.customerService.getCustomer().subscribe((customer) => {
-           this.orderService.getOrdersOfCustomer(customer).subscribe(this.successOrderResponse.bind(this), this.errorSuccessOrderResponse.bind(this))
-         }, error => {
-           // TODO add error handler
+       this.orderService.getOrderById(this.orderId).subscribe((order) => {
+         this.order = order
+       }, (error) => {
+         // TODO redirect to 404 or display message no access
+         this.toastService.showError({
+           message: 'Failed to fetch order. You either have no access to this order or it does not exist anymore',
+           durationInSeconds: 3
          })
-       }
+       })
     });
-  }
-
-  successOrderResponse(orders: Order[]): void {
-    const existingOrderIndex = orders.findIndex((order) => {
-      return order.id == this.orderId
-    })
-    if (existingOrderIndex !== -1) {
-      this.order = orders[existingOrderIndex];
-    } else {
-      // TODO redirect to 404
-    }
-  }
-
-  errorSuccessOrderResponse(error: any): void {
-    this.toastService.showError({
-      message: 'Failed to fetch your orders-from-customer please try again later',
-      durationInSeconds: 3
-    })
   }
 
   calculateTotal(): number {
