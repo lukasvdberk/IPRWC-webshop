@@ -66,7 +66,6 @@ module.exports = class OrderController {
 
             return ApiResponse.successResponse(ordersFromUser, res)
         } catch(ignored) {
-            console.log(ignored)
             return ApiResponse.errorResponse(500, 'Failed to fetch orders-from-customer', res)
         }
     }

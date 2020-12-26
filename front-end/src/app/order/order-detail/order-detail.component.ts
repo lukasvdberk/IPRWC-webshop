@@ -45,7 +45,6 @@ export class OrderDetailComponent implements OnInit {
     })
     if (existingOrderIndex !== -1) {
       this.order = orders[existingOrderIndex];
-      console.log(this.order.productOrders)
     } else {
       // TODO redirect to 404
     }

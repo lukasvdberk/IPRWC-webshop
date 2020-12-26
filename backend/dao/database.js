@@ -18,8 +18,7 @@ module.exports = class Database {
 
             return result
 
-        } catch (exception) {
-            console.log(exception)
+        } catch (ignored) {
         }
     }
     /**
@@ -50,8 +49,7 @@ module.exports = class Database {
             } finally {
                 client.release()
             }
-        } catch (exception) {
-            console.log(exception)
+        } catch (ignored) {
         }
         return false
     }

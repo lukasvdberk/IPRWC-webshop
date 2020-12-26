@@ -34,7 +34,6 @@ export class UpdateOrderStatusAdminComponent implements OnInit {
 
   onSubmit() {
     if (this.order && this.order.id && this.statusOrderForm) {
-      console.log(this.statusOrderForm.value.status)
       this.orderService.updateOrderStatus(this.order.id, this.statusOrderForm.value.status).subscribe((response) => {
         this.toastService.showSuccess({
           durationInSeconds: 4,

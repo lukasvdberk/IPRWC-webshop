@@ -10,7 +10,7 @@ import {TShirtOrderItem} from "../../shared/models/t-shirt-order-item";
 export class CartItemComponent implements OnInit {
   amount = 1
   @Input() editable = true
-  @Input() cartItem: OrderItem | TShirtOrderItem | undefined
+  @Input() cartItem: OrderItem | TShirtOrderItem | undefined | any
   @Output() updated: EventEmitter<OrderItem> = new EventEmitter();
   @Output() removed: EventEmitter<OrderItem> = new EventEmitter();
 
