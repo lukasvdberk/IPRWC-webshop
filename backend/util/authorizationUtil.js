@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
+const Database = require('../dao/database')
+
 
 module.exports = class AuthorizationUtil {
     /**
@@ -98,15 +100,23 @@ module.exports = class AuthorizationUtil {
      * sets user model in req.user and req.isAdmin
      * @function
      */
-    static isAuthenticatedAsAdmin (req, res, next) {
+    static async isAuthenticatedAsAdmin (req, res, next) {
         const jwtToken = req.header('Bearer-token')
 
         const jwtPayload = AuthorizationUtil.extractJWTInformation(jwtToken)
 
         if (jwtPayload !== undefined) {
-            const isAdmin = jwtPayload.isAdmin
+            const isAdminJWTClaim = jwtPayload.isAdmin
 
-            if (isAdmin) {
+            // whether the user is still an admin else the jwt keys are valid forever
+            const isAdminAccordingToDatabase = (await Database.executeSQLStatement(
+                `SELECT is_admin
+                FROM "user"
+                WHERE user_id=$1 AND is_admin=true;`,
+                jwtPayload.userId
+            )).rowCount > 0
+
+            if (isAdminJWTClaim && isAdminAccordingToDatabase) {
                 req.user = new User(jwtPayload.email)
                 req.user.id = jwtPayload.userId
                 req.user.isAdmin = jwtPayload.isAdmin
