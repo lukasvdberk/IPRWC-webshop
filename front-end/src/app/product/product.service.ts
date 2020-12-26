@@ -15,17 +15,8 @@ export class ProductService {
   }
 
   getProductById(productId: number) {
-    return this.httpClient.get<Product[]>(
-      "products",
-    ).pipe(
-      map((products) => {
-        const product = products.find(product => {
-          return product.id == productId;
-        })
-
-        catchError((error: HttpErrorResponse) => { return throwError(error); })
-        return product
-      })
+    return this.httpClient.get<Product>(
+      `product/${productId}`,
     )
   }
 

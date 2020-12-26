@@ -18,6 +18,20 @@ module.exports = class ProductController {
         }
     }
 
+    static getProductById(req, res, next) {
+        const productId = req.params.productId
+
+        ProductDAO.getProductById(productId).then((product) => {
+            if (product === undefined) {
+                return ApiResponse.errorResponse(404, 'Could not find product', res)
+            } else {
+                return ApiResponse.successResponse(product, res)
+            }
+        }).catch((exception) => {
+            return ApiResponse.errorResponse(404, 'Could not find product', res)
+        })
+    }
+
     static getAllProducts(req, res, next) {
         ProductDAO.getAllProducts().then((products) => {
             return ApiResponse.successResponse(products, res)

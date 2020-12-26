@@ -8,11 +8,11 @@ const AuthorizationMiddleware = require('../middleware/authorization')
 const AuthenticationController = require('../controller/authenticationController')
 const CustomerController = require('../controller/customerController')
 
-// Files route
-// router.use('/media', express.static('media'))
 
 // Product routes
 router.get('/api/products', ProductController.getAllProducts)
+router.get('/api/product/:productId', ProductController.getProductById)
+
 router.post('/api/products/', AuthorizationMiddleware.isAuthenticatedAsAdmin ,ProductController.addProduct)
 router.patch('/api/products/:productId', AuthorizationMiddleware.isAuthenticatedAsAdmin ,ProductController.editProduct)
 router.delete('/api/products/:productId', AuthorizationMiddleware.isAuthenticatedAsAdmin, ProductController.deleteProduct)
