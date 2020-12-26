@@ -1,12 +1,13 @@
 <div class="container">
-  <h1>Scarlxrd merch</h1>
-  <img class="card-img-top" alt="Responsive image" src="/assets/images/scarlxrd-banner.jpg" />
+  <h1>Scarlxrd t-shirt shop</h1>
+  <p>On this site you can buy all sorts of t-shirts from the music artist Scarlxrd. Below a video of his musc</p>
+  <iframe class="card-img-top" height="450" src="https://www.youtube.com/embed/OC7cNS0GINo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   <h3>Merchandise from scarlxrd</h3>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3"  *ngFor="let product of products">
-      <app-product [product]="product">
-        <a [routerLink]="['product', product.id]" class="btn btn-dark">Go to order page</a>
-      </app-product>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4"  *ngFor="let product of products">
+        <app-product [product]="product">
+          <a [routerLink]="['product', product.id]" class="btn btn-dark">Go to order page</a>
+        </app-product>
+      </div>
     </div>
-  </div>
 </div>
