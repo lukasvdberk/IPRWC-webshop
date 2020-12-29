@@ -30,6 +30,7 @@ module.exports = class ProductDAO {
             )
             return this.queryResultToModel(allProductsQueryResult)
         } catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }
@@ -43,6 +44,7 @@ module.exports = class ProductDAO {
             return this.queryResultToModel(productById)[0]
         }
         catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }
@@ -60,6 +62,7 @@ module.exports = class ProductDAO {
                 return undefined
             }
         } catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }
@@ -79,6 +82,7 @@ module.exports = class ProductDAO {
             )
             return updatedProductQueryResult.rowCount > 0;
         } catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }
@@ -93,6 +97,7 @@ module.exports = class ProductDAO {
             )
             return deletedProductQueryResult.rowCount > 0;
         } catch (ignored) {
+            console.log(ignored)
             return false
         }
     }

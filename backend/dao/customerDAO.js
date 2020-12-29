@@ -15,6 +15,7 @@ module.exports = class CustomerDAO {
             return customerSaveQueryResult.rowCount > 0
         }
         catch (ignored) {
+            console.log(ignored)
             return false
         }
     }
@@ -65,6 +66,7 @@ module.exports = class CustomerDAO {
             return this.queryResultToModel(customerQueryResult, customerUserQueryResult)[0]
         }
         catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }
@@ -83,7 +85,8 @@ module.exports = class CustomerDAO {
             )
 
             return this.queryResultToModel(customerQueryResult, customerUserQueryResult)[0]
-        } catch(e) {
+        } catch(ignored) {
+            console.log(ignored)
             return undefined
         }
     }

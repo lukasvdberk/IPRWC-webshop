@@ -13,6 +13,7 @@ module.exports = class UserDAO {
 
         }
         catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }
@@ -32,6 +33,7 @@ module.exports = class UserDAO {
                 return user
             }
         } catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }
@@ -45,6 +47,7 @@ module.exports = class UserDAO {
             return result.rowCount > 0
         }
         catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }

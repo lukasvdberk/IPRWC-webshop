@@ -56,6 +56,7 @@ module.exports = class OrderDAO {
 
             return (await OrderDAO.orderQueryResultToModels(ordersFromUserQueryResult))[0]
         } catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }
@@ -68,6 +69,7 @@ module.exports = class OrderDAO {
 
             return await OrderDAO.orderQueryResultToModels(ordersFromUserQueryResult)
         } catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }
@@ -81,6 +83,7 @@ module.exports = class OrderDAO {
 
             return await OrderDAO.orderQueryResultToModels(ordersFromUserQueryResult)
         } catch (ignored) {
+            console.log(ignored)
             return undefined
         }
     }
@@ -96,6 +99,7 @@ module.exports = class OrderDAO {
 
             return updatedQueryOrderResult.rowCount > 0
         } catch (ignored) {
+            console.log(ignored)
             return false
         }
     }
