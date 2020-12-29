@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ProductModule} from "./product/product.module";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
-import {BaseUrlInterceptor} from "./api/http-client.interceptor";
+import {ApiInterceptor} from "./api/http-client.interceptor";
 import {environment} from "../environments/environment";
 import {SharedModule} from "./shared/shared.module";
 import {ToastService} from "./shared/toast-service/toast.service";
@@ -28,7 +28,7 @@ import {ToastService} from "./shared/toast-service/toast.service";
     {provide: 'BASE_API_URL', useValue: environment.baseUrl},
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: BaseUrlInterceptor,
+      useClass: ApiInterceptor,
       multi: true,
     },
   ],

@@ -2,10 +2,10 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from "../authentication/authentication.service";
-// import {AuthService} from '../authentication/auth.service';
 
+// Sets jwt token and base url
 @Injectable()
-export class BaseUrlInterceptor implements HttpInterceptor {
+export class ApiInterceptor implements HttpInterceptor {
 
   constructor(
     private authService:AuthenticationService,

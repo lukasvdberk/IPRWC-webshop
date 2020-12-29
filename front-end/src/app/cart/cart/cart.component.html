@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-6">
-      <h1>Your shopping cart items</h1>
+      <h1>Your shopping cart</h1>
       <button class="btn btn-danger" (click)="onClearCart()">Clear cart</button>
       <app-cart-item
         *ngFor="let cartItem of cartItems; let i = index"

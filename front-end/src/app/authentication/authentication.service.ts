@@ -20,7 +20,6 @@ export class AuthenticationService {
 
   saveAuthentication(jwtKey: string, isAdmin: boolean) {
     localStorage.setItem('jwtKey', jwtKey)
-    // TODO maybe save the whole user here.
     localStorage.setItem('isAdmin', String(isAdmin));
   }
 

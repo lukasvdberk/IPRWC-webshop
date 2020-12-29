@@ -19,3 +19,37 @@ input {
   margin-left: 15px;
   max-width: 50px;
 }
+
+.float-right {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+  .float-right {
+    float: none;
+    margin-right: 2px;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  input {
+   margin: 0;
+  }
+
+  div[class^='col-*'] {
+    margin: 0;
+    padding: 0;
+  }
+
+  .col-5 > * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .close, .close-btn {
+    width: 10px !important;
+    display: inline;
+    float: right;
+  }
+}
