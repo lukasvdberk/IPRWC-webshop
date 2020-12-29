@@ -19,6 +19,8 @@ export class CustomerSigningComponent implements OnInit {
   }
 
   onSigning() {
-    this.router.navigateByUrl(this.redirectUrl)
+    this.router.navigateByUrl(this.redirectUrl).then(()=> {
+      window.location.reload();
+    })
   }
 }

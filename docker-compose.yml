@@ -31,7 +31,7 @@ services:
     build: database
     restart: always
     volumes:
-      - ./database/data:/var/lib/postgresql
+      - database:/var/lib/postgresql/data:rw
     ports:
       - "4000:5432"
     expose:
@@ -61,4 +61,5 @@ networks:
 
 volumes:
   media:
+  database:
   front-end-static:
