@@ -48,40 +48,56 @@ module.exports = class OrderDAO {
     }
 
     static async getOrderById(orderId) {
-        const ordersFromUserQueryResult = await Database.executeSQLStatement(
-            'SELECT * FROM "order" WHERE order_id = $1',
-            orderId
-        )
+        try {
+            const ordersFromUserQueryResult = await Database.executeSQLStatement(
+                'SELECT * FROM "order" WHERE order_id = $1',
+                orderId
+            )
 
-        return (await OrderDAO.orderQueryResultToModels(ordersFromUserQueryResult))[0]
+            return (await OrderDAO.orderQueryResultToModels(ordersFromUserQueryResult))[0]
+        } catch (ignored) {
+            return undefined
+        }
     }
 
     static async getAllOrders() {
-        const ordersFromUserQueryResult = await Database.executeSQLStatement(
-            'SELECT * FROM "order"',
-        )
+        try {
+            const ordersFromUserQueryResult = await Database.executeSQLStatement(
+                'SELECT * FROM "order"',
+            )
 
-        return await OrderDAO.orderQueryResultToModels(ordersFromUserQueryResult)
+            return await OrderDAO.orderQueryResultToModels(ordersFromUserQueryResult)
+        } catch (ignored) {
+            return undefined
+        }
     }
 
     static async getAllOrdersFromCustomer(customer) {
-        const ordersFromUserQueryResult = await Database.executeSQLStatement(
-            'SELECT * FROM "order" WHERE customer_id=$1',
-            customer.id
-        )
+        try {
+            const ordersFromUserQueryResult = await Database.executeSQLStatement(
+                'SELECT * FROM "order" WHERE customer_id=$1',
+                customer.id
+            )
 
-        return (await OrderDAO.orderQueryResultToModels(ordersFromUserQueryResult))
+            return await OrderDAO.orderQueryResultToModels(ordersFromUserQueryResult)
+        } catch (ignored) {
+            return undefined
+        }
     }
 
     static async updateStatusOfOrder(orderId, status) {
-        const updatedQueryOrderResult = await Database.executeSQLStatement(
-            `UPDATE "order"
+        try {
+            const updatedQueryOrderResult = await Database.executeSQLStatement(
+                `UPDATE "order"
                 SET status = $1
             WHERE order_id = $2`,
-            status, orderId
-        )
+                status, orderId
+            )
 
-        return updatedQueryOrderResult.rowCount > 0
+            return updatedQueryOrderResult.rowCount > 0
+        } catch (ignored) {
+            return false
+        }
     }
 
     static async saveOrder(order) {

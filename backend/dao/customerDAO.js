@@ -4,15 +4,19 @@ const User = require('../models/user')
 
 module.exports = class CustomerDAO {
     static async saveCustomer(customer) {
-        const customerSaveQueryResult = await Database.executeSQLStatement(
-            `INSERT INTO customer (user_id, customer_id, first_name, last_name, street, 
+        try {
+            const customerSaveQueryResult = await Database.executeSQLStatement(
+                `INSERT INTO customer (user_id, customer_id, first_name, last_name, street, 
                 street_number, postal_code, customer_since, phone_number, city, country) 
              VALUES ($1, DEFAULT, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP, $7, $8, $9)`,
-            customer.user.id, customer.firstName, customer.lastName, customer.street,
-            customer.streetNumber, customer.postalCode, customer.phoneNumber, customer.city, customer.country
-        )
-
-        return customerSaveQueryResult.rowCount > 0
+                customer.user.id, customer.firstName, customer.lastName, customer.street,
+                customer.streetNumber, customer.postalCode, customer.phoneNumber, customer.city, customer.country
+            )
+            return customerSaveQueryResult.rowCount > 0
+        }
+        catch (ignored) {
+            return false
+        }
     }
 
     static queryResultToModel(customerQueryResult, userCustomerQueryResult) {
@@ -47,17 +51,22 @@ module.exports = class CustomerDAO {
     }
 
     static async getCustomerByUserId(userId) {
-        const customerQueryResult = await Database.executeSQLStatement(
-            'SELECT * FROM customer WHERE user_id=$1', userId
-        )
+        try{
+            const customerQueryResult = await Database.executeSQLStatement(
+                'SELECT * FROM customer WHERE user_id=$1', userId
+            )
 
-        const customerUserQueryResult = await Database.executeSQLStatement(
-            `SELECT user_id, "user".email, is_admin
-            FROM "user"
-            WHERE user_id=$1`,
-            userId
-        )
-        return this.queryResultToModel(customerQueryResult, customerUserQueryResult)[0]
+            const customerUserQueryResult = await Database.executeSQLStatement(
+                `SELECT user_id, "user".email, is_admin
+                FROM "user"
+                WHERE user_id=$1`,
+                userId
+            )
+            return this.queryResultToModel(customerQueryResult, customerUserQueryResult)[0]
+        }
+        catch (ignored) {
+            return undefined
+        }
     }
 
     static async getCustomerByCustomerId(customerId) {

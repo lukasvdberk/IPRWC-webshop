@@ -42,6 +42,7 @@ services:
       - base
   backend:
     container_name: backend
+    restart: always
     build: backend
     networks:
       - base
