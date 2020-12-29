@@ -37,17 +37,19 @@ export class ProductDetailComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       const productId = params['id']
       this.productService.getProductById(productId as number).subscribe((product) => {
-        if(product === undefined) {
-          // TODO not found so throw a 404
-        } else {
-          this.product = product;
+        this.product = product;
+      }, error => {
+        if (error.status === 404) {
+          this.toastService.showError({
+            message: '404. Product not found',
+            durationInSeconds: 10
+          })
         }
       })
     })
   }
 
   addToShoppingCart() {
-    // TODO add to shopping cart or go to finalize order page.
     const isAddedToCart = this.cartService.addProductToShoppingCart({
       size: this.orderForm.value.size,
       amount: this.orderForm.value.amount,

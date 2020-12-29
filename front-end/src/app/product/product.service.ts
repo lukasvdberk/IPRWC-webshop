@@ -28,12 +28,13 @@ export class ProductService {
     ).pipe(tap((response: any) => {
       const imageForm = new FormData();
       imageForm.append("image", imageFile, imageFile.name);
-      // TODO refactor to cleaner way
+      // not the best since will not get reported if the image fails to upload but could not find a better way
       this.httpClient.put(`products/${response.productId}/image`, imageForm)
         .subscribe((response2) => {}, (error) => {})
     }))
   }
 
+  // NOTE requires admin authentication
   editProduct(existingProduct :Product, imageFile: File | undefined) {
     return this.httpClient.patch(
       `products/${existingProduct.id}`,
@@ -42,7 +43,7 @@ export class ProductService {
       if (imageFile) {
         const imageForm = new FormData();
         imageForm.append("image", imageFile, imageFile.name);
-        // TODO refactor to cleaner way
+        // not the best since will not get reported if the image fails to upload but could not find a better way
         this.httpClient.put(`products/${existingProduct.id}/image`, imageForm)
           .subscribe((response2) => {}, (error) => {})
       }

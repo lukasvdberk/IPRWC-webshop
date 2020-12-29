@@ -25,7 +25,10 @@ export class OrdersComponent implements OnInit {
         })
       })
     }, error => {
-      // TODO add error handling
+      this.toastService.showError({
+        message: 'Failed to fetch your orders-from-customer. Try logging in again.',
+        durationInSeconds: 5
+      })
     })
   }
 

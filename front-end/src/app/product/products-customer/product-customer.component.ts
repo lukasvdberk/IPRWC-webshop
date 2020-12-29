@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from "../product.service";
 import {Product} from "../product";
+import {ToastService} from "../../shared/toast-service/toast.service";
 
 @Component({
   selector: 'app-product-customer',
@@ -9,7 +10,7 @@ import {Product} from "../product";
 })
 export class ProductCustomerComponent implements OnInit {
   products: Product[] = []
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.setProduct()
@@ -19,7 +20,10 @@ export class ProductCustomerComponent implements OnInit {
     this.productService.getProducts().subscribe((response)=> {
       this.products = response as Product[]
     }, error => {
-      // TODO display appropriate error
+      this.toastService.showError({
+        message: 'Failed to fetch products. Try again later.',
+        durationInSeconds: 5
+      })
     });
   }
 

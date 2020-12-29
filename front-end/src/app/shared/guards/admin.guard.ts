@@ -26,7 +26,6 @@ export class AdminGuard implements CanActivate {
       return false
     }
     if (!isAdmin) {
-      // TODO add redirect to error page with something like access denied
       this.router.navigate(['admin', 'signing'], {
         queryParams: {
           'redirectUrl': currentUrl

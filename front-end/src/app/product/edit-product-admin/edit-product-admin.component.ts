@@ -23,7 +23,12 @@ export class EditProductAdminComponent implements OnInit {
        this.productService.getProductById(params.productId).subscribe((product) => {
          this.existingProduct = product
        }, error => {
-         // TODO add 404 if the product is not found
+         if(error.status === 404) {
+           this.toastService.showError({
+             message: '404. Product not found',
+             durationInSeconds: 10
+           })
+         }
        })
     });
   }

@@ -30,7 +30,6 @@ export class OrderDetailComponent implements OnInit {
        this.orderService.getOrderById(this.orderId).subscribe((order) => {
          this.order = order
        }, (error) => {
-         // TODO redirect to 404 or display message no access
          this.toastService.showError({
            message: 'Failed to fetch order. You either have no access to this order or it does not exist anymore',
            durationInSeconds: 3

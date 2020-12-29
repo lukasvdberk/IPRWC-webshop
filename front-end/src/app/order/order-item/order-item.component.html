@@ -3,8 +3,7 @@
     <span>{{ order.orderedOn | date }}</span>
   </div>
   <div class="col-4">
-      <!-- TODO add functionality -->
-    <span>Status: DELIVERED</span>
+    <span>Status: {{ order.status }}</span>
   </div>
   <div class="col-2">
     <span>&euro; {{ calculateTotal() }} </span>
