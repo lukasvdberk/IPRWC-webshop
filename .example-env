@@ -1,4 +1,4 @@
-SQL_HOST=localhost
+SQL_HOST=database
 POSTGRES_DB=iprwc
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=password
