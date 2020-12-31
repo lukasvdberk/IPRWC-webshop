@@ -18,6 +18,7 @@ export class OrderService {
     for (let i = 0; i < order.productOrders.length; i++) {
       // @ts-ignore
       const productOrder = order.productOrders[i] as any
+      console.log(productOrder)
       orderToSendToApi.push({
         productId: productOrder.product.id,
         amount: productOrder.amount,

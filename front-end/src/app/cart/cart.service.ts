@@ -10,7 +10,7 @@ export class CartService {
   public cartSubject = new BehaviorSubject(this.getShoppingCartItems());
   constructor() { }
 
-  getShoppingCartItems(): OrderItem[] {
+  getShoppingCartItems(): any[] {
     try {
       const cartItems = localStorage.getItem('shoppingCartItems')
       const items = JSON.parse(<string>cartItems) as OrderItem[];
@@ -39,6 +39,7 @@ export class CartService {
       } else {
         currentShoppingItems.push(item)
       }
+      console.log(item)
       localStorage.setItem('shoppingCartItems', JSON.stringify(currentShoppingItems));
       this.cartSubject.next(currentShoppingItems)
       return true

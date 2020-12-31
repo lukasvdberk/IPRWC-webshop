@@ -10,12 +10,10 @@ import {Product} from "../../product/product";
 })
 export class CartComponent implements OnInit {
   cartItems: OrderItem[] | undefined
-  cartProducts : Product[] | undefined
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
     this.cartItems = this.cartService.getShoppingCartItems()
-    this.cartProducts = this.cartItems.map((i: OrderItem) => i.product)
   }
 
   onCartItemUpdated(item: OrderItem) {
