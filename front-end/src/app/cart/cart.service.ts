@@ -39,7 +39,6 @@ export class CartService {
       } else {
         currentShoppingItems.push(item)
       }
-      console.log(item)
       localStorage.setItem('shoppingCartItems', JSON.stringify(currentShoppingItems));
       this.cartSubject.next(currentShoppingItems)
       return true
