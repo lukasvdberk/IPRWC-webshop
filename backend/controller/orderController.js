@@ -120,4 +120,22 @@ module.exports = class OrderController {
             return ApiResponse.errorResponse(404, 'One or more products could not be found', res)
         }
     }
+
+    static async deleteOrder(req, res, next) {
+        const orderId = req.params.orderId
+        OrderDAO.getOrderById(orderId).then((order) => {
+            if (order) {
+                console.log(orderId)
+                OrderDAO.deleteOrder(orderId).then((isDeleted) => {
+                    return ApiResponse.successResponse({}, res)
+                }).catch((ignored) => {
+                    return ApiResponse.errorResponse(500, 'Failed to find order', res)
+                })
+            } else {
+                return ApiResponse.errorResponse(404, 'Order does not exist', res)
+            }
+        }).catch((ignored) => {
+            return ApiResponse.errorResponse(500, 'Failed to find order', res)
+        })
+    }
 }

@@ -1,0 +1,3 @@
+<form class="form-controls mt-2" (ngSubmit)="onSubmit()" #orderStatusForm="ngForm" ngForm *ngIf="order">
+  <button class="btn btn-danger" [disabled]="!orderStatusForm.valid">Delete order</button>
+</form>

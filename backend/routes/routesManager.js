@@ -26,7 +26,7 @@ router.get('/api/orders/user/:userId', AuthorizationMiddleware.isAuthenticatedAs
 router.get('/api/orders/all', AuthorizationMiddleware.isAuthenticatedAsAdmin, OrderController.getAllOrders)
 router.get('/api/order/:orderId', AuthorizationMiddleware.isAuthenticatedAsUser, OrderController.getOrderById)
 router.patch('/api/order/:orderId/status', AuthorizationMiddleware.isAuthenticatedAsAdmin, OrderController.updateOrderStatus)
-
+router.delete('/api/order/:orderId', AuthorizationMiddleware.isAuthenticatedAsAdmin, OrderController.deleteOrder)
 
 router.post('/api/orders/user/:userId', AuthorizationMiddleware.isAuthenticatedAsUser, OrderController.placeOrder)
 

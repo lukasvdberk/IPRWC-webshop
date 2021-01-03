@@ -14,6 +14,7 @@ import { AllOrdersAdminComponent } from './all-orders-admin/all-orders-admin.com
 import {AdminGuard} from "../shared/guards/admin.guard";
 import { UpdateOrderStatusAdminComponent } from './update-order-status-admin/update-order-status-admin.component';
 import {FormsModule} from "@angular/forms";
+import { DeleteOrderAdminComponent } from './delete-order-admin/delete-order-admin.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,8 @@ const routes: Routes = [
     OrderItemComponent,
     OrderDetailComponent,
     AllOrdersAdminComponent,
-    UpdateOrderStatusAdminComponent
+    UpdateOrderStatusAdminComponent,
+    DeleteOrderAdminComponent
   ],
   imports: [
     CommonModule,

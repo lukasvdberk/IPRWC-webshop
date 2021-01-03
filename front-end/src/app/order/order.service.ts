@@ -52,4 +52,10 @@ export class OrderService {
       }
     )
   }
+
+  deleteOrder(orderId: number) {
+    return this.httpClient.delete(
+      `order/${orderId}`
+    )
+  }
 }

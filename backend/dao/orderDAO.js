@@ -136,4 +136,26 @@ module.exports = class OrderDAO {
         }
         return savedProductOrders
     }
+
+    static async deleteOrder(orderId) {
+        try {
+            const updateOrderRuleQueryResult = await Database.executeSQLStatement(
+                `DELETE FROM order_rule
+                WHERE order_id = $1`,
+                orderId
+            )
+            const updatedOrderQueryResult = await Database.executeSQLStatement(
+                `
+                DELETE FROM "order"
+                WHERE order_id = $1`,
+                orderId
+            )
+
+            return updatedOrderQueryResult.rowCount > 0 &&  updateOrderRuleQueryResult.rowCount > 0
+        }
+        catch (ignored) {
+            console.log(ignored)
+            return false
+        }
+    }
 }
