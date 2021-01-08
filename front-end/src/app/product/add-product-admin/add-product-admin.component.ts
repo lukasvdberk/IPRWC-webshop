@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ProductService} from "../product.service";
 import {ToastService} from "../../shared/toast-service/toast.service";
@@ -9,13 +9,18 @@ import {Router} from "@angular/router";
   templateUrl: './add-product-admin.component.html',
   styleUrls: ['./add-product-admin.component.css']
 })
-export class AddProductAdminComponent implements OnInit {
+export class AddProductAdminComponent implements OnInit, OnDestroy {
   @ViewChild('productForm') productForm: NgForm | undefined
 
+  timeoutSubscription: any
   selectedImage: File | undefined
   constructor(private productService: ProductService, private toastService: ToastService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.timeoutSubscription)
   }
 
   onImageAdded(event: any): void {
@@ -33,7 +38,7 @@ export class AddProductAdminComponent implements OnInit {
           message: 'Product added. You will be redirect in a couple of seconds',
           durationInSeconds: 3
         })
-        setTimeout(() => {
+        this.timeoutSubscription = setTimeout(() => {
           this.router.navigate(['', 'products', 'manage'])
         }, 3000)
       }, (error) => {

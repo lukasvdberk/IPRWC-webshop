@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ProductService} from "../product.service";
 import {ToastService} from "../../shared/toast-service/toast.service";
@@ -10,11 +10,13 @@ import {Product} from "../product";
   templateUrl: './edit-product-admin.component.html',
   styleUrls: ['./edit-product-admin.component.css']
 })
-export class EditProductAdminComponent implements OnInit {
+export class EditProductAdminComponent implements OnInit, OnDestroy {
   @ViewChild('productForm') productForm: NgForm | undefined
 
   selectedImage: File | undefined
   existingProduct: Product | undefined
+  timeoutSubscription: any
+
   constructor(private productService: ProductService, private toastService: ToastService, private router: Router,
               private route: ActivatedRoute) { }
 
@@ -33,6 +35,10 @@ export class EditProductAdminComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    clearTimeout(this.timeoutSubscription)
+  }
+
   onImageAdded(event: any): void {
     this.selectedImage = event.target.files[0]
   }
@@ -49,7 +55,7 @@ export class EditProductAdminComponent implements OnInit {
           message: 'Edited existing product. You will be redirected to the manage page',
           durationInSeconds: 3
         })
-        setTimeout(() => {
+        this.timeoutSubscription = setTimeout(() => {
           this.router.navigate(['', 'products', 'manage'])
         }, 3000)
       }, (error) => {

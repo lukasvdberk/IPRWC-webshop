@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {OrderItem} from "../../shared/models/order-item";
 import {CartService} from "../../cart/cart.service";
 import {OrderService} from "../order.service";
@@ -11,7 +11,8 @@ import {ToastService} from "../../shared/toast-service/toast.service";
   templateUrl: './place-order.component.html',
   styleUrls: ['./place-order.component.css']
 })
-export class PlaceOrderComponent implements OnInit {
+export class PlaceOrderComponent implements OnInit, OnDestroy {
+  timeoutSubscription: any
   shoppingCartItems: OrderItem[] | undefined
   constructor(private cartService: CartService, private orderService: OrderService, private customerService: CustomerService,
               private router: Router, private toastService: ToastService) { }
@@ -19,6 +20,11 @@ export class PlaceOrderComponent implements OnInit {
   ngOnInit(): void {
     this.shoppingCartItems = this.cartService.getShoppingCartItems()
   }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.timeoutSubscription)
+  }
+
 
   onPayed(): void {
     this.customerService.getCustomer().subscribe((customer) => {
@@ -42,7 +48,7 @@ export class PlaceOrderComponent implements OnInit {
           }
         )
         this.cartService.clearShoppingCart()
-        setTimeout(
+        this.timeoutSubscription = setTimeout(
           () => {
           this.router.navigate(['order', 'orders'])
 
