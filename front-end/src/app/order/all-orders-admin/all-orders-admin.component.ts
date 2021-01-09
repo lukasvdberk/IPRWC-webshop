@@ -15,7 +15,7 @@ export class AllOrdersAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderService.getAllOrders().subscribe((allOrders) => {
-      this.orders = allOrders
+      this.orders = allOrders.reverse()
     }, error => {
       this.toastService.showError({
         message: 'Failed to fetch all the orders. Try again later.',
