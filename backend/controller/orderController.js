@@ -88,10 +88,6 @@ module.exports = class OrderController {
         const customer = await CustomerDAO.getCustomerByUserId(req.user.id)
         const productOrders = req.body
 
-        if(!OrderController.canAccessOrders(req)) {
-            return ApiResponse.errorResponse(401, 'Not authorized', res)
-        }
-
         let productOrdersModels = []
         for(let i = 0; i < productOrders.length; i++) {
             const productOrder = productOrders[i]

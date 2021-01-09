@@ -23,12 +23,12 @@ export class CustomerService {
           this.authService.saveAuthentication(response.key, response.isAdmin)
         }
       )).pipe(mergeMap((response) => {
-        return this.httpClient.post('customer', customerToSend)
+        return this.httpClient.post('customers', customerToSend)
       }));
   }
 
   getCustomer(): Observable<Customer>{
       // if local does not exist then we fetch from remote
-      return this.httpClient.get<Customer>('customer/me')
+      return this.httpClient.get<Customer>('customers/me')
   }
 }

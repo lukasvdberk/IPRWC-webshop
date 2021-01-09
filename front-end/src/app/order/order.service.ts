@@ -24,14 +24,14 @@ export class OrderService {
         size: productOrder?.size === undefined ? undefined : productOrder?.size
       })
     }
-    return this.httpClient.post(`orders/user/` + order.customer.id,
+    return this.httpClient.post(`orders/users/` + order.customer.id,
       orderToSendToApi
     )
   }
 
-  // Requires the customer.id to be the same as in the JWT key
+  // Requires the customer.user.id to be the same as in the JWT key
   getOrdersOfCustomer(customer: Customer): Observable<Order[]> {
-    return this.httpClient.get<Order[]>(`orders/user/` + customer.id)
+    return this.httpClient.get<Order[]>(`orders/users/` + customer.user.id)
   }
 
   // You can only fetch this if the user is an admin
