@@ -40,12 +40,12 @@ export class OrderService {
   }
 
   getOrderById(orderId: number): Observable<Order> {
-    return this.httpClient.get<Order>(`order/${orderId}`)
+    return this.httpClient.get<Order>(`orders/${orderId}`)
   }
 
   updateOrderStatus(orderId: number, newStatus: string) {
     return this.httpClient.patch(
-      `order/${orderId}/status`,
+      `orders/${orderId}/status`,
       {
         status: newStatus
       }
@@ -54,7 +54,7 @@ export class OrderService {
 
   deleteOrder(orderId: number) {
     return this.httpClient.delete(
-      `order/${orderId}`
+      `orders/${orderId}`
     )
   }
 }

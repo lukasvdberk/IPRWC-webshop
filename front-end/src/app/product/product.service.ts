@@ -16,7 +16,7 @@ export class ProductService {
 
   getProductById(productId: number) {
     return this.httpClient.get<Product>(
-      `product/${productId}`,
+      `products/${productId}`,
     )
   }
 
