@@ -1,7 +1,0 @@
-SQL_DATABASE=iprwc
-SQL_HOST=localhost
-SQL_USERNAME=postgres
-SQL_PASSWORD=password
-SQL_PORT=5432
-API_PORT=3000
-JWT_SECRET_KEY=really_secret_key
